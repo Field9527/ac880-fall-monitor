@@ -43,6 +43,33 @@ class HomeTests(unittest.TestCase):
         self.mmio = MMIO()
         self.outputs = HomeOutputs(self.mmio, LED())
 
+    def test_gateway_ports_share_pixels_state_and_video_client_code(self):
+        web = HomeWeb(self.outputs, dict(host="127.0.0.1", port=0))
+        extra = web.add_listener("127.0.0.1", 0)
+        clients = [
+            http.client.HTTPConnection("127.0.0.1", port, timeout=3)
+            for port in (web.server.server_port, extra)
+        ]
+        try:
+            web.publish(None, dict(running=True, ready=True, state_name="IDLE"))
+            values = []
+            for client in clients:
+                client.request("GET", "/api/state")
+                response = client.getresponse()
+                self.assertEqual(response.status, 200)
+                values.append(json.loads(response.read()))
+                client.request("GET", "/video_stream.js")
+                response = client.getresponse()
+                self.assertEqual(response.status, 200)
+                self.assertIn("javascript", response.getheader("Content-Type"))
+                self.assertIn(b"LatestDecoder", response.read())
+            self.assertEqual(values[0]["control_token"], values[1]["control_token"])
+            self.assertEqual(values[0]["run_id"], values[1]["run_id"])
+        finally:
+            for client in clients:
+                client.close()
+            web.close()
+
     def test_raw_video_snapshot_survives_owner_reuse_and_strided_input(self):
         video = SharedVideo(fps=30, codec="rgb565")
         pixels = np.arange(32 * 48, dtype=np.uint16).reshape(32, 48)

@@ -416,7 +416,7 @@ class HomeWeb:
             def do_GET(self):
                 path = urlsplit(self.path).path
                 try:
-                    if path in ("/", "/app.css", "/app.js"):
+                    if path in ("/", "/app.css", "/app.js", "/video_stream.js"):
                         name = "index.html" if path == "/" else path[1:]
                         data = (owner.assets / name).read_bytes()
                         if name == "index.html":
@@ -425,6 +425,7 @@ class HomeWeb:
                             "index.html": "text/html",
                             "app.css": "text/css",
                             "app.js": "text/javascript",
+                            "video_stream.js": "text/javascript",
                         }[name]
                         return self.send_bytes(data, kind + "; charset=utf-8")
                     if path == "/api/state":
@@ -563,7 +564,16 @@ class HomeWeb:
             target=self.server.serve_forever, name="home-http", daemon=True
         )
         self.thread.start()
+        self.listeners = []
         self.logger.info("局域网控制面板: http://0.0.0.0:%d", self.server.server_port)
+
+    def add_listener(self, host, port):
+        """不同访问端口共用状态、视频和编码线程。"""
+        server = type(self.server)((host, port), self.server.RequestHandlerClass)
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        self.listeners.append((server, thread))
+        return server.server_port
 
     def publish(self, frame, status=None):
         self.video.submit(frame)
@@ -618,6 +628,10 @@ class HomeWeb:
         self.video.close()
         if self.jpeg_fallback:
             self.jpeg_fallback.close()
+        for server, thread in self.listeners:
+            server.shutdown()
+            server.server_close()
+            thread.join(timeout=3.0)
         self.server.shutdown()
         self.server.server_close()
         self.thread.join(timeout=3.0)

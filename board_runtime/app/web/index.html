@@ -20,7 +20,25 @@
       <section class="monitor-column" aria-label="摄像头监控">
         <div class="card monitor-card">
           <div class="card-heading"><div><span class="live-dot"></span><h2>摄像头 01</h2><span class="muted">实时画面</span></div><button class="icon-button" id="fullscreen" title="全屏查看" aria-label="全屏查看"><svg viewBox="0 0 24 24" fill="none"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button></div>
-          <div class="video-wrap" id="video-wrap"><img id="camera" alt="开发板摄像头实时识别画面"><div class="video-wait" id="video-wait"><span class="loader"></span><strong>正在连接摄像头</strong><span>画面就绪后将自动显示</span></div><div class="video-top"><span class="video-chip"><i></i>LIVE</span><span class="video-chip" id="test-context" hidden>手机回放测试</span></div><div class="video-bottom"><span id="video-resolution">等待画面</span><span id="stream-info">等待视频流</span></div></div>
+          <div class="video-wrap" id="video-wrap">
+            <div class="video-stage" id="video-stage">
+              <canvas id="video-canvas" width="640" height="360" aria-label="开发板实时画面"></canvas>
+              <img id="camera" hidden alt="开发板摄像头实时识别画面">
+              <div class="stream-hud-header">
+                <div class="stream-brand"><span class="stream-shield">◇</span><div>FALL GUARD<small>AC880 · 边缘监护</small></div></div>
+                <strong id="video-state">正在连接</strong>
+                <div class="stream-score"><span>跌倒评分</span><b id="video-score">—</b></div>
+                <span class="stream-mode" id="test-context">现场画面</span>
+              </div>
+              <div class="stream-hud-footer">
+                <div><span>温度</span><strong><b id="video-temperature">—</b><em>℃</em></strong></div>
+                <div><span>相对湿度</span><strong><b id="video-humidity">—</b><em>%RH</em></strong></div>
+                <div class="stream-hand"><span>手势控制</span><strong id="video-gesture">等待手势</strong><small id="video-gesture-hint">完整单手入镜</small></div>
+                <div class="stream-source"><span id="video-resolution">等待画面</span><strong>OV5640</strong><small id="stream-info">等待视频流</small></div>
+              </div>
+              <div class="video-wait" id="video-wait"><span class="loader"></span><strong>正在连接摄像头</strong><span>画面就绪后将自动显示</span></div>
+            </div>
+          </div>
           <div class="monitor-footer"><span><i class="tiny-dot"></i>视频与识别独立更新</span><span id="viewer-info">0 台设备正在观看</span></div>
         </div>
         <div class="metrics"><div class="metric card"><span>识别状态</span><strong id="state-text">连接中</strong><small id="state-description">等待开发板状态</small></div><div class="metric card"><span>网页帧率</span><strong><b id="web-fps">—</b><em> FPS</em></strong><small id="hdmi-fps">HDMI — FPS</small></div><div class="metric card"><span>本次报警</span><strong><b id="alarm-count">0</b><em> 次</em></strong><small id="uptime">本次运行 —</small></div></div>
@@ -67,6 +85,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <footer class="page-footer"><span>家居守护 · AC880</span><span>本地视频 · 本地控制</span></footer>
   <noscript>请在浏览器中启用 JavaScript 以查看状态和控制设备。</noscript>
+  <script src="/video_stream.js"></script>
   <script src="/app.js"></script>
 </body>
 </html>

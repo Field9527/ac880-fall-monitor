@@ -47,7 +47,7 @@
 | 硬件开发 | Vivado 2025.2，Verilog、Block Design、XDC |
 | 网关与云端 | Python、OpenSSH、Nginx、HTTPS |
 
-摄像头及 HDMI 使用 1280×720；显示刷新上限为 12 FPS。网页视频采用 640×360、JPEG 质量 60、发送上限 15 FPS。上述上限是显示或传输配置，不代表模型识别频率。
+摄像头及 HDMI 使用 1280×720；显示刷新上限为 12 FPS。网页视频采用 640×360、JPEG 质量 75、发送上限 15 FPS。上述上限是显示或传输配置，不代表模型识别频率。
 
 ## HDMI 显示
 
@@ -56,6 +56,10 @@
 ![HDMI 界面布局示意](docs/figures/hdmi_ui.png)
 
 图中为布局预览与示意数据，不作为识别或传感器实测结果。
+
+## 网页显示
+
+网页在浏览器中独立绘制状态、评分、温湿度和手势文字，全屏显示不随视频压缩。视频使用最新帧解码，局域网与远程访问共享一次视频接收和编码。显示上限保持 12 FPS，网页发送上限保持 15 FPS。停止共享网页网关时，局域网和远程网页同时断开，板端识别继续运行。
 
 ## 源码导航
 
@@ -157,9 +161,11 @@ $env:PYTHONPATH = 'ac880_fall/ml;board_runtime/app'
 python -c "import cache_env,unittest,sys; r=unittest.TextTestRunner().run(unittest.defaultTestLoader.discover('ac880_fall/tests',pattern='test*.py')); sys.exit(not r.wasSuccessful())"
 ```
 
-当前方案 87 项软件回归通过，另已完成视频、外设和 HTTPS 访问链路的集成检查。软件回归检查程序逻辑，不等同于识别准确率或真实人员现场验收；手机屏幕回放单独作为集成测试记录。
+当前方案 88 项软件回归通过，另已完成视频、外设和 HTTPS 访问链路的集成检查。软件回归检查程序逻辑，不等同于识别准确率或真实人员现场验收；手机屏幕回放单独作为集成测试记录。
 
 识别仍存在偶发手部误报、部分跌倒漏报和手势响应偏慢的情况；DHT11 湿度校准、硬件方法学及 CDC 问题仍需完善。测试条件与结果见 [技术报告](./docs/technical_report.md) 的完成情况及性能参数部分。
+
+视频流解析、慢解码丢帧与重连隔离检查：`node ac880_fall/tests/test_video_stream.cjs`。
 
 ## 数据与许可
 

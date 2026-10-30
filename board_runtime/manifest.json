@@ -41,8 +41,8 @@
       "sha256": "0af35ac7759518d45d048a4a7b2e68ca8bb5c9ba5e15b8cc946384766691739a"
     },
     "app/home_web.py": {
-      "bytes": 27810,
-      "sha256": "7ba6abd9d8ebe4979a462f30d9424a2f4dd392755835ba0085e58be3e27493df"
+      "bytes": 28447,
+      "sha256": "4fef1f413261097643f1a35ad6e58590203401502d9a29c75e16a60ed07f188e"
     },
     "app/image_processing.py": {
       "bytes": 5285,
@@ -81,16 +81,20 @@
       "sha256": "c92ceddf7a7f714291c20ba9e5ad9c207aa9f9f9445ddf8711d4ae0b21adc298"
     },
     "app/web/app.css": {
-      "bytes": 15377,
-      "sha256": "ea16345bc0eb564dbeed8854598b8fbc521b0d070e799b011cdb06b0756de186"
+      "bytes": 19682,
+      "sha256": "770db0beb7b6e4c12b7f681ec5bdc3c8037849d5e59d9382aa2e7f58b9e941fc"
     },
     "app/web/app.js": {
-      "bytes": 17780,
-      "sha256": "a56b4802a5898c819f7022533ead6f4a299cc811bc80ad0f6c4600e8c8b1af9f"
+      "bytes": 19522,
+      "sha256": "79646e77e42b1a5e3f2279abf7bab655cddfece700e3022e4fb62adcb1737e65"
     },
     "app/web/index.html": {
-      "bytes": 10152,
-      "sha256": "1312b7b97514dd20dc0100cd7a2c9c3997f0231ccb24a14dd8206a8946c4fa78"
+      "bytes": 11335,
+      "sha256": "10da1f1da07804a27e2d872eb53c3afd56e9915ab74a0d7310b4a8eba8999fd4"
+    },
+    "app/web/video_stream.js": {
+      "bytes": 7876,
+      "sha256": "1713ed560873e81ec7c3dac06be78db73fde32d834c4c6438f81dddc82c35ef3"
     },
     "assets/DATA_SOURCES.md": {
       "bytes": 2556,

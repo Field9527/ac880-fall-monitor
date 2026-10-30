@@ -1,4 +1,4 @@
-param()
+﻿param()
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path $PSScriptRoot -Parent
 $cloudOutput = 'E:\Zynq_project\ac880_fall\out\cloud_20261029\hongkong'
@@ -17,13 +17,15 @@ function Get-RecordedProcess([string]$RecordPath, [string]$CommandPart) {
     return $null
 }
 
+& (Join-Path $PSScriptRoot 'start_home_lan.ps1')
+
 $listener = Get-NetTCPConnection -LocalPort 8089 -State Listen -ErrorAction SilentlyContinue
 if ($listener) {
     $gatewayOwner = Get-CimInstance Win32_Process -Filter "ProcessId=$($listener[0].OwningProcess)"
     if ($gatewayOwner.CommandLine -notlike '*lan_gateway.py*') { throw 'Port 8089 belongs to another application.' }
     Write-Host 'Web gateway is already running.'
 } else {
-    $gatewayArguments = @((Join-Path $PSScriptRoot 'lan_gateway.py'), '--host', '127.0.0.1', '--port', '8089', '--fps', '15', '--jpeg-quality', '60', '--max-width', '640', '--data', 'E:\Zynq_project\ac880_fall\data\home_events')
+    $gatewayArguments = @((Join-Path $PSScriptRoot 'lan_gateway.py'), '--host', '127.0.0.1', '--port', '8089', '--lan-port', '8088', '--fps', '15', '--jpeg-quality', '75', '--max-width', '640', '--data', 'E:\Zynq_project\ac880_fall\data\home_events')
     $gatewayProcess = Start-Process -FilePath 'E:\Anaconda\envs\DL\python.exe' -ArgumentList $gatewayArguments -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $cloudOutput 'gateway.log') -RedirectStandardError (Join-Path $cloudOutput 'gateway_error.log')
     Set-Content -LiteralPath (Join-Path $cloudOutput 'gateway.pid') -Value $gatewayProcess.Id
 }

@@ -70,9 +70,10 @@ def main():
     parser.add_argument(
         "--data", default=str(Path(__file__).resolve().parents[1] / "data/home_events")
     )
-    parser.add_argument("--fps", type=float, default=30)
-    parser.add_argument("--jpeg-quality", type=int, default=82)
+    parser.add_argument("--fps", type=float, default=15)
+    parser.add_argument("--jpeg-quality", type=int, default=75)
     parser.add_argument("--max-width", type=int)
+    parser.add_argument("--lan-port", type=int)
     args = parser.parse_args()
     base = args.board.rstrip("/")
     outputs = RemoteOutputs(base)
@@ -88,6 +89,8 @@ def main():
         ),
         archive=archive,
     )
+    if args.lan_port is not None:
+        web.add_listener("0.0.0.0", args.lan_port)
     with web.lock:
         web.state = dict(
             state_name="STARTING", running=False, ready=False, reason="board_connecting"

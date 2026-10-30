@@ -43,11 +43,35 @@ function renderEnvironment(value,connected){
 }
 async function post(path,payload){const controller=typeof AbortController!=='undefined'?new AbortController():null,options={method:'POST',headers:{'Content-Type':'application/json','X-Home-Token':token},body:JSON.stringify(payload)};if(controller)options.signal=controller.signal;const timer=controller?setTimeout(()=>controller.abort(),6000):null;try{const response=await fetch(path,options),body=await response.json();if(!response.ok)throw Error(body.error||'请求失败');return body;}finally{clearTimeout(timer);}}
 async function command(payload){if(!current||busy)return;busy=true;enableControls(true);try{const body=await post('/api/control',payload);pending=body.revision;pendingSince=Date.now();toast('控制已提交，等待板端执行');await poll();}catch(error){toast(error.name==='AbortError'?'请求超时，请检查开发板连接':error.message,true);}finally{busy=false;enableControls(Boolean(current&&current.detector.running));}}
+
+function renderVideoHud(d,c,connected){
+ const stage=$('video-stage'),e=current.environment||{},valid=connected&&e.valid;
+ stage.classList.toggle('is-alarm',connected&&d.state_name==='ALARM');
+ $('video-state').textContent=!connected?'未连接':stateNames[d.state_name]||'等待识别';
+ $('video-score').textContent=connected?Math.max(0,Math.min(1,Number(d.pe)||0)).toFixed(2):'—';
+ $('test-context').textContent=d.test_context==='phone_screen_replay'?'手机回放测试':d.test_context==='ui_preview'?'界面预览':'现场画面';
+ $('video-temperature').textContent=valid?Number(e.temperature_c).toFixed(1):'—';
+ $('video-humidity').textContent=valid?Number(e.humidity_rh).toFixed(1):'—';
+ const s=c.semantic||{},hand=d.hand,fresh=typeof d.hand_age_s==='number'&&d.hand_age_s<=3;
+ $('video-gesture').textContent=!connected?'等待连接':s.gesture_enabled===false?'手势已关闭':s.mode==='phone_replay'?'回放中暂停':hand&&fresh?(gestureNames[hand.name]||'手势未确认'):'等待手势';
+ $('video-gesture-hint').textContent=!connected?'检查板端程序':s.mode==='phone_replay'?'手机回放联调':handHints[d.hand_status]||'保持姿势，等待稳定确认';
+}
+function updateVideoStats(stats,server={}){
+ const fps=stats.native?server.fps:stats.fps;
+ $('web-fps').textContent=fps?fps.toFixed(1):'—';
+ $('stream-info').textContent=fps?`${fps.toFixed(1)} FPS · ${stats.native?'视频流':'最新帧'}`:'等待视频流';
+}
+const videoPlayer=new HomeVideo.VideoPlayer($('video-canvas'),$('camera'),stats=>{
+ $('video-wait').hidden=true;
+ $('video-resolution').textContent=`${stats.width} × ${stats.height}`;
+ updateVideoStats(stats);
+},message=>{ $('camera-link').textContent=message; });
 function render(data){current=data;token=data.control_token||token;const d=data.detector,c=data.controls,v=data.video,alarm=d.state_name==='ALARM',ready=d.ready&&d.running;
- const board=d.running&&data.status_age_s<3,fresh=board&&v.frame_age_s!==null&&v.frame_age_s<3;
+ const board=d.running&&data.status_age_s<3,clientVideo=videoPlayer.stats(),fresh=clientVideo.native?board&&v.frame_age_s!==null&&v.frame_age_s<3:clientVideo.fresh;
  renderEnvironment(data.environment,board);
  renderImage(c.image,d,board);
  renderSemantic(d,c,board);
+ renderVideoHud(d,c,board);
  $('connection').className='connection '+(board?'online':'offline');$('connection').innerHTML='<i></i>'+(board?'已连接':'开发板未就绪');
  $('gateway-link').textContent='网页服务：已连接';$('board-link').textContent=board?'开发板：已连接':'开发板：未连接或已停止';$('camera-link').textContent=fresh?'相机：实时画面':'相机：画面未更新';
  $('state-text').textContent=stateNames[d.state_name]||'监测中';$('state-text').style.color=alarm?'#c53d3d':'#2c7052';
@@ -57,12 +81,10 @@ function render(data){current=data;token=data.control_token||token;const d=data.
  if(d.coverage_limited&&board&&!alarm){$('safety-title').textContent='覆盖范围受限';$('safety-subtitle').textContent='目标较多，部分候选尚未完成复核';}
  if(typeof d.evidence_age_s==='number'&&d.evidence_age_s>3&&board&&!alarm){$('safety-title').textContent='识别结果未更新';$('safety-subtitle').textContent='视频仍可观看，请确认现场情况';}
  const score=Math.max(0,Math.min(1,Number(d.pe)||0));$('fall-score').textContent=score.toFixed(2);$('score-bar').style.width=`${score*100}%`;
- $('web-fps').textContent=v.fps?v.fps.toFixed(1):'—';$('hdmi-fps').textContent=`HDMI ${d.display_fps?d.display_fps.toFixed(1):'—'} FPS`;
+ $('web-fps').textContent=clientVideo.native?(v.fps?v.fps.toFixed(1):'—'):(clientVideo.fps?clientVideo.fps.toFixed(1):'—');$('hdmi-fps').textContent=`HDMI ${d.display_fps?d.display_fps.toFixed(1):'—'} FPS`;
  $('alarm-count').textContent=c.alarm_count;$('uptime').textContent=`本次运行 ${duration(d.uptime_s||0)}`;
- $('video-resolution').textContent=Array.isArray(v.resolution)?v.resolution.join(' × '):'等待画面';$('viewer-info').textContent=`${v.viewers} 台设备正在观看`;$('stream-info').textContent=`${v.fps?v.fps.toFixed(1):'—'} FPS · 实时传输`;
+ $('video-resolution').textContent=Array.isArray(v.resolution)?v.resolution.join(' × '):'等待画面';$('viewer-info').textContent=`${v.viewers} 台设备正在观看`;updateVideoStats(clientVideo,v);
  $('inference-info').textContent=d.inference_ms?`识别 ${Math.round(d.inference_ms)} ms / 次 · ${d.inference_fps?d.inference_fps.toFixed(1):'—'} 次 / 秒`:'评分不代表识别准确率';
- $('test-context').hidden=!['phone_screen_replay','ui_preview'].includes(d.test_context);
- $('test-context').textContent=d.test_context==='ui_preview'?'界面预览 · 非摄像头':'手机回放测试';
  $('video-wait').hidden=fresh;
  if(!fresh)$('video-wait').querySelector('strong').textContent=v.sequence?'画面暂未更新':'正在连接摄像头';
  document.querySelectorAll('.led-button').forEach((e,i)=>e.setAttribute('aria-pressed',String(Boolean(c.applied.led_mask&(1<<i)))));
@@ -76,7 +98,8 @@ function render(data){current=data;token=data.control_token||token;const d=data.
  const events=$('events');if(c.events.length){events.replaceChildren();for(const event of c.events.slice(0,5)){const row=document.createElement('div');row.className='event '+event.kind;const icon=document.createElement('span');icon.className='event-icon';icon.textContent=event.kind==='alarm'?'!':'↗';const text=document.createElement('span');text.textContent=event.message;const time=document.createElement('time');time.textContent=age(event.age_s);row.append(icon,text,time);events.append(row);}}
  enableControls(Boolean(board));if(!c.applied.ps_led_available)document.querySelectorAll('[data-ps]').forEach(e=>e.disabled=true);
 }
-async function poll(){const controller=typeof AbortController!=='undefined'?new AbortController():null;const timer=controller?setTimeout(()=>controller.abort(),4000):null;try{const options={cache:'no-store'};if(controller)options.signal=controller.signal;const response=await fetch('/api/state',options);if(!response.ok)throw Error('offline');render(await response.json());}catch(e){current=null;renderEnvironment(null,false);$('connection').className='connection offline';$('connection').innerHTML='<i></i>连接中断';$('gateway-link').textContent='网页服务：连接中断';$('board-link').textContent='开发板：状态未知';$('camera-link').textContent='相机：画面未更新';$('safety-title').textContent='连接中断';$('safety-subtitle').textContent='请检查网络连接与设备运行状态';$('state-text').textContent='连接中断';enableControls(false);$('video-wait').hidden=false;$('video-wait').querySelector('strong').textContent='正在重新连接';}finally{clearTimeout(timer);}}
+let pollBusy=false;
+async function poll(){if(pollBusy)return;pollBusy=true;const controller=typeof AbortController!=='undefined'?new AbortController():null;const timer=controller?setTimeout(()=>controller.abort(),4000):null;try{const options={cache:'no-store'};if(controller)options.signal=controller.signal;const response=await fetch('/api/state',options);if(!response.ok)throw Error('offline');render(await response.json());}catch(e){current=null;renderEnvironment(null,false);$('connection').className='connection offline';$('connection').innerHTML='<i></i>连接中断';$('gateway-link').textContent='网页服务：连接中断';$('board-link').textContent='开发板：状态未知';$('camera-link').textContent='相机：画面未更新';$('safety-title').textContent='连接中断';$('safety-subtitle').textContent='请检查网络连接与设备运行状态';$('state-text').textContent='连接中断';enableControls(false);$('video-wait').hidden=false;$('video-wait').querySelector('strong').textContent='正在重新连接';}finally{pollBusy=false;clearTimeout(timer);}}
 const contexts={live_scene:'现场画面',phone_screen_replay:'手机回放测试',synthetic_output_test:'联动测试',synthetic:'模拟测试',ui_preview:'界面预览'};
 const reviews={unreviewed:'待确认',confirmed:'已确认倒地',false_alarm:'已标记误报'};
 async function incidents(force=false){if(incidentBusy)return;incidentBusy=true;try{const response=await fetch('/api/incidents',{cache:'no-store'});if(!response.ok)throw Error('记录暂不可用');const data=await response.json(),signature=JSON.stringify(data);if(!force&&signature===incidentSignature)return;
@@ -96,8 +119,10 @@ document.querySelectorAll('[data-monitor]').forEach(e=>e.onclick=()=>command({se
 $('gesture-enabled').onchange=e=>command({semantic:{gesture_enabled:e.target.checked}});
 $('replay-rotation').onchange=e=>command({semantic:{rotation:Number(e.target.value)}});
 $('fullscreen').onclick=()=>{const target=$('video-wrap');if(document.fullscreenElement)document.exitFullscreen();else if(target.requestFullscreen)target.requestFullscreen().catch(()=>toast('当前浏览器不支持全屏'));};
-$('camera').onerror=()=>{clearTimeout(reconnectTimer);reconnectTimer=setTimeout(()=>$('camera').src='/stream.mjpg?t='+Date.now(),2000);};
+
 function clock(){const d=new Date(),pad=n=>n<10?'0'+n:String(n);$('clock').textContent=pad(d.getMonth()+1)+'/'+pad(d.getDate())+' '+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds());}
-enableControls(false);clock();setInterval(clock,1000);poll();setInterval(poll,1000);incidents();setInterval(incidents,5000);
-setTimeout(()=>$('camera').src='/stream.mjpg',100);
+enableControls(false);clock();setInterval(clock,1000);poll();setInterval(poll,500);incidents();setInterval(incidents,5000);
+videoPlayer.start();
+document.addEventListener('visibilitychange',()=>{if(document.hidden)videoPlayer.stop();else{videoPlayer.start();poll();}});
+window.addEventListener('pagehide',()=>videoPlayer.stop());
 })();
