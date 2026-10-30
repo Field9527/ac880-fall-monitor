@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="1022" viewBox="0 0 2000 1022">
+<defs><marker id="arrow-173447" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M 1 1 L 11 6 L 1 11 z" fill="#252A30"/></marker><marker id="arrow-527082" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M 1 1 L 11 6 L 1 11 z" fill="#555B62"/></marker><marker id="arrow-287CA6" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M 1 1 L 11 6 L 1 11 z" fill="#315E83"/></marker><marker id="arrow-168E8A" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M 1 1 L 11 6 L 1 11 z" fill="#315E83"/></marker><marker id="arrow-B27B2E" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M 1 1 L 11 6 L 1 11 z" fill="#315E83"/></marker></defs>
+<rect width="2000" height="1022" fill="white"/>
+<style>text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; } .small {font-weight:400;} </style>
+<text x="35" y="67" font-size="47" font-weight="650" fill="#252A30" text-anchor="start">
+<tspan x="35" dy="0">视频数据通路</tspan>
+</text>
+<g data-node="OV5640" data-x="35" data-y="135" data-w="330" data-h="165">
+<rect x="35" y="135" width="330" height="165" rx="8" fill="white" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 37 157 L 37 278" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="200.0" y="208.50000244140625" font-size="48" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="200.0" dy="0">OV5640</tspan>
+</text>
+<text x="200.0" y="268.50000244140625" font-size="33" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="200.0" dy="0">SCCB 配置 / DVP</tspan>
+</text>
+</g>
+<g data-node="采集与像素打包" data-x="535" data-y="135" data-w="610" data-h="165">
+<rect x="535" y="135" width="610" height="165" rx="8" fill="#FFFFFF" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 537 157 L 537 278" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="840.0" y="207.12499633789062" font-size="47" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="840.0" dy="0">采集与像素打包</tspan>
+</text>
+<text x="840.0" y="268.8749963378906" font-size="35" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="840.0" dy="0">PCLK / VSYNC / HREF / DATA</tspan>
+</text>
+</g>
+<g data-node="AXI VDMA + DDR" data-x="1335" data-y="135" data-w="630" data-h="165">
+<rect x="1335" y="135" width="630" height="165" rx="8" fill="#FFFFFF" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 1337 157 L 1337 278" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="1650.0" y="204.7499938964844" font-size="46" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="1650.0" dy="0">AXI VDMA + DDR</tspan>
+</text>
+<text x="1650.0" y="269.2499938964844" font-size="38" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="1650.0" dy="0">S2MM 采集 / MM2S 显示</tspan>
+</text>
+</g>
+<path d="M 365 220 L 535 220" fill="none" stroke="#315E83" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow-287CA6)"/>
+<path d="M 1145 220 L 1335 220" fill="none" stroke="#315E83" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow-287CA6)"/>
+<rect x="1152.2" y="151" width="175.6" height="48" rx="7" fill="white" stroke="none" stroke-width="2.5"/>
+<text x="1240" y="183" font-size="32" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="1240" dy="0">AXI 流</tspan>
+</text>
+<path d="M 1650 300 L 1650 370 L 995 370 L 995 450" fill="none" stroke="#315E83" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow-287CA6)"/>
+<path d="M 995 370 L 260 370 L 260 450" fill="none" stroke="#315E83" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow-287CA6)"/>
+<circle cx="995" cy="370" r="5.5" fill="#315E83"/>
+<g data-node="PS 模型输入" data-x="35" data-y="450" data-w="450" data-h="185">
+<rect x="35" y="450" width="450" height="185" rx="8" fill="#FFFFFF" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 37 472 L 37 613" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="260.0" y="507.56409381479995" font-size="43.76092850065483" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="260.0" dy="0">PS 模型输入</tspan>
+</text>
+<text x="260.0" y="567.9732016363561" font-size="35.19900770704845" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="260.0" dy="0">原始彩色帧</tspan>
+<tspan x="260.0" dy="46.462690173303955">不读取显示滤镜</tspan>
+</text>
+</g>
+<g data-node="PL 滤镜 / PS 叠加" data-x="645" data-y="450" data-w="700" data-h="185">
+<rect x="645" y="450" width="700" height="185" rx="8" fill="white" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 647 472 L 647 613" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="995.0" y="507.45723317694296" font-size="43.79968276783061" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="995.0" dy="0">PL 滤镜 / PS 叠加</tspan>
+</text>
+<text x="995.0" y="567.7982855007097" font-size="35.412509471863046" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="995.0" dy="0">灰度 · 边缘 · 亮度对比度</tspan>
+<tspan x="995.0" dy="46.74451250285922">叠加状态与目标框</tspan>
+</text>
+</g>
+<g data-node="HDMI 显示" data-x="1545" data-y="450" data-w="420" data-h="185">
+<rect x="1545" y="450" width="420" height="185" rx="8" fill="white" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 1547 472 L 1547 613" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="1755.0" y="529.87498046875" font-size="49" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="1755.0" dy="0">HDMI 显示</tspan>
+</text>
+<text x="1755.0" y="597.12498046875" font-size="40" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="1755.0" dy="0">720p 输出</tspan>
+</text>
+</g>
+<path d="M 1345 545 L 1545 545" fill="none" stroke="#315E83" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow-287CA6)"/>
+<path d="M 35 720 L 1965 720" fill="none" stroke="#C3C6CA" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="35" y="790" font-size="47" font-weight="650" fill="#252A30" text-anchor="start">
+<tspan x="35" dy="0">环境采集与外设接口</tspan>
+</text>
+<g data-node="DHT11 三针模块" data-x="35" data-y="830" data-w="660" data-h="170">
+<rect x="35" y="830" width="660" height="170" rx="8" fill="#FFFFFF" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 37 852 L 37 978" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="365.0" y="884.5161481072645" font-size="41.078145928718406" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="365.0" dy="0">DHT11 三针模块</tspan>
+</text>
+<text x="365.0" y="939.5152212673819" font-size="31.036821368365022" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="365.0" dy="0">VCC → P7-29    GND → P7-30</tspan>
+<tspan x="365.0" dy="40.96860420624183">DATA/S → P7-31（V8）</tspan>
+</text>
+</g>
+<g data-node="PL 寄存器与 PS 统一访问" data-x="930" data-y="830" data-w="1035" data-h="170">
+<rect x="930" y="830" width="1035" height="170" rx="8" fill="#FFFFFF" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 932 852 L 932 978" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="1447.5" y="902.3750073242188" font-size="45" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="1447.5" dy="0">PL 寄存器与 PS 统一访问</tspan>
+</text>
+<text x="1447.5" y="965.6250073242188" font-size="37" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="1447.5" dy="0">温湿度校验与读取 / LED / 蜂鸣器控制</tspan>
+</text>
+</g>
+<path d="M 695 915 L 930 915" fill="none" stroke="#315E83" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow-B27B2E)"/>
+<rect x="751.955" y="841" width="120.09" height="49" rx="7" fill="white" stroke="none" stroke-width="2.5"/>
+<text x="812" y="874" font-size="33" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="812" dy="0">单总线</tspan>
+</text>
+</svg>

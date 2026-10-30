@@ -1,0 +1,42 @@
+{
+  "architecture": "mediapipe_hands",
+  "models": {
+    "palm": {
+      "param": "palm_nchw.ncnn.param",
+      "weights": "palm_nchw.ncnn.bin",
+      "param_sha256": "d0ae66dcf8a8f5edf9ec998d9d149d311f137ec556709b800e349db71c2ce43b",
+      "weights_sha256": "d87b2cf3392803bc8be3d163ade404b5d6d2c7ba48c567ff9d1ff0c2aac0f00a",
+      "output_names": [
+        "out0",
+        "out1"
+      ],
+      "output_layouts": [
+        2,
+        2
+      ]
+    },
+    "hand": {
+      "param": "hand_nchw.ncnn.param",
+      "weights": "hand_nchw.ncnn.bin",
+      "param_sha256": "070b5315280b2bddbc38da6dd9047d311984b9371bccccf875cde0dd23f4a530",
+      "weights_sha256": "56b2c1b64b1e24cbe20dbd36f0f68caa6d82e84c7faad91a2201b5e28074566a",
+      "output_names": [
+        "out0",
+        "out1",
+        "out2",
+        "out3"
+      ],
+      "output_layouts": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "source_commit": "48b10fa505aeb51fbd127fc60a5c660040e823b7",
+  "license": "Apache-2.0",
+  "pc_parity": true,
+  "field_qualified": false,
+  "library_sha256": "f32edd1292bf9214881bd5a0da2d7bf14be06ed5f8520caa259bd8ed8c0993e9"
+}

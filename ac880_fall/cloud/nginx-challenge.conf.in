@@ -1,0 +1,18 @@
+# Certificate bootstrap endpoint: only ACME challenge files are public.
+user www-data;
+worker_processes 1;
+pid /run/ac880-home-public.pid;
+error_log /opt/ac880-home-preview/logs/public-error.log warn;
+events { worker_connections 256; }
+http {
+    server_tokens off;
+    access_log /opt/ac880-home-preview/logs/public-access.log;
+    server {
+        listen 80;
+        server_name __DOMAIN__;
+        location /.well-known/acme-challenge/ {
+            root /opt/ac880-home-preview/acme;
+        }
+        location / { return 404; }
+    }
+}

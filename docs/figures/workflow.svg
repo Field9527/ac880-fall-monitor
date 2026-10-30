@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="1344" viewBox="0 0 2000 1344">
+<defs><marker id="arrow-173447" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M 1 1 L 11 6 L 1 11 z" fill="#252A30"/></marker><marker id="arrow-527082" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M 1 1 L 11 6 L 1 11 z" fill="#555B62"/></marker><marker id="arrow-287CA6" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M 1 1 L 11 6 L 1 11 z" fill="#315E83"/></marker><marker id="arrow-168E8A" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M 1 1 L 11 6 L 1 11 z" fill="#315E83"/></marker><marker id="arrow-B27B2E" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M 1 1 L 11 6 L 1 11 z" fill="#315E83"/></marker></defs>
+<rect width="2000" height="1344" fill="white"/>
+<style>text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; } .small {font-weight:400;} </style>
+<g data-node="取得已完成采集帧" data-x="550" data-y="28" data-w="900" data-h="120">
+<rect x="550" y="28" width="900" height="120" rx="8" fill="#FFFFFF" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 552 50 L 552 126" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="1000.0" y="78.0671315880699" font-size="36.92184594542148" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="1000.0" dy="0">取得已完成采集帧</tspan>
+</text>
+<text x="1000.0" y="128.93286616181547" font-size="29.851705232468433" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="1000.0" dy="0">固定图像所有权与采样时间</tspan>
+</text>
+</g>
+<path d="M 1000 148 L 1000 205" fill="none" stroke="#315E83" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow-287CA6)"/>
+<g data-node="最新帧调度" data-x="550" data-y="205" data-w="900" data-h="120">
+<rect x="550" y="205" width="900" height="120" rx="8" fill="#FFFFFF" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 552 227 L 552 303" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="1000.0" y="255.06713708667337" font-size="36.921843687374746" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="1000.0" dy="0">最新帧调度</tspan>
+</text>
+<text x="1000.0" y="305.9328685495992" font-size="29.851703406813627" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="1000.0" dy="0">每个模型最多一个在途任务</tspan>
+</text>
+</g>
+<rect x="35" y="410" width="910" height="715" rx="12" fill="#F7F7F7" stroke="#C3C6CA" stroke-width="2.5"/>
+<rect x="1055" y="410" width="910" height="715" rx="12" fill="#F7F7F7" stroke="#C3C6CA" stroke-width="2.5"/>
+<path d="M 1000 325 L 1000 380 L 490 380 L 490 410" fill="none" stroke="#315E83" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow-287CA6)"/>
+<path d="M 1000 380 L 1510 380 L 1510 410" fill="none" stroke="#315E83" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow-168E8A)"/>
+<circle cx="1000" cy="380" r="5.5" fill="#315E83"/>
+<text x="490" y="471" font-size="44" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="490" dy="0">摔倒分支</tspan>
+</text>
+<text x="1510" y="471" font-size="44" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="1510" dy="0">手势分支</tspan>
+</text>
+<g data-node="检测与 ROI 复核" data-x="80" data-y="505" data-w="820" data-h="150">
+<rect x="80" y="505" width="820" height="150" rx="8" fill="white" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 82 527 L 82 633" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="490.0" y="566.6250146484375" font-size="47" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="490.0" dy="0">检测与 ROI 复核</tspan>
+</text>
+<text x="490.0" y="633.3750146484375" font-size="40" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="490.0" dy="0">预处理 → NCNN → 候选框</tspan>
+</text>
+</g>
+<g data-node="掌部与 21 点关键点" data-x="1100" data-y="505" data-w="820" data-h="150">
+<rect x="1100" y="505" width="820" height="150" rx="8" fill="white" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 1102 527 L 1102 633" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="1510.0" y="566.6250146484375" font-size="47" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="1510.0" dy="0">掌部与 21 点关键点</tspan>
+</text>
+<text x="1510.0" y="633.3750146484375" font-size="40" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="1510.0" dy="0">计算手势、位置及置信度</tspan>
+</text>
+</g>
+<path d="M 490 655 L 490 715" fill="none" stroke="#315E83" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow-287CA6)"/>
+<path d="M 1510 655 L 1510 715" fill="none" stroke="#315E83" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow-168E8A)"/>
+<g data-node="局部手部复核" data-x="80" data-y="715" data-w="820" data-h="150">
+<rect x="80" y="715" width="820" height="150" rx="8" fill="white" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 82 737 L 82 843" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="490.0" y="777.6250073242187" font-size="47" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="490.0" dy="0">局部手部复核</tspan>
+</text>
+<text x="490.0" y="842.3750073242187" font-size="38" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="490.0" dy="0">校验时效 / 置信度 / 框重合</tspan>
+</text>
+</g>
+<g data-node="稳定确认" data-x="1100" data-y="715" data-w="820" data-h="150">
+<rect x="1100" y="715" width="820" height="150" rx="8" fill="white" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 1102 737 L 1102 843" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="1510.0" y="778.1249731445313" font-size="47" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="1510.0" dy="0">稳定确认</tspan>
+</text>
+<text x="1510.0" y="841.8749731445313" font-size="37" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="1510.0" dy="0">至少 2 个新样本 + 稳定 0.5 秒</tspan>
+</text>
+</g>
+<path d="M 1100 580 L 1000 580 L 1000 790 L 900 790" fill="none" stroke="#315E83" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="10 9" marker-end="url(#arrow-168E8A)"/>
+<rect x="934.04" y="664" width="131.92000000000002" height="44" rx="7" fill="white" stroke="none" stroke-width="2.5"/>
+<text x="1000" y="692" font-size="28" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="1000" dy="0">手部证据</tspan>
+</text>
+<path d="M 490 865 L 490 925" fill="none" stroke="#315E83" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow-287CA6)"/>
+<path d="M 1510 865 L 1510 925" fill="none" stroke="#315E83" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow-168E8A)"/>
+<g data-node="各目标时序判决" data-x="80" data-y="925" data-w="820" data-h="155">
+<rect x="80" y="925" width="820" height="155" rx="8" fill="white" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 82 947 L 82 1058" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="490.0" y="989.62498046875" font-size="47" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="490.0" dy="0">各目标时序判决</tspan>
+</text>
+<text x="490.0" y="1055.37498046875" font-size="39" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="490.0" dy="0">IDLE → 候选 → 预警 → 报警</tspan>
+</text>
+</g>
+<g data-node="单次动作与冷却" data-x="1100" data-y="925" data-w="820" data-h="155">
+<rect x="1100" y="925" width="820" height="155" rx="8" fill="white" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 1102 947 L 1102 1058" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="1510.0" y="990.6250036621094" font-size="47" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="1510.0" dy="0">单次动作与冷却</tspan>
+</text>
+<text x="1510.0" y="1054.3750036621095" font-size="37" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="1510.0" dy="0">张掌开灯 / 握拳关灯 / V 短鸣</tspan>
+</text>
+</g>
+<path d="M 490 1080 L 490 1165 L 1000 1165 L 1000 1195" fill="none" stroke="#315E83" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow-287CA6)"/>
+<path d="M 1510 1080 L 1510 1165 L 1000 1165" fill="none" stroke="#315E83" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round"/>
+<g data-node="硬件主线程执行与显示发布" data-x="550" data-y="1195" data-w="900" data-h="125">
+<rect x="550" y="1195" width="900" height="125" rx="8" fill="#FFFFFF" stroke="#AEB4BB" stroke-width="2.5"/>
+<path d="M 552 1217 L 552 1298" stroke="#315E83" stroke-width="3.6" stroke-linecap="round"/>
+<text x="1000.0" y="1246.0259368356" font-size="38.26349892008639" font-weight="650" fill="#252A30" text-anchor="middle">
+<tspan x="1000.0" dy="0">硬件主线程执行与显示发布</tspan>
+</text>
+<text x="1000.0" y="1300.9741009824684" font-size="32.03455723542117" font-weight="400" fill="#555B62" text-anchor="middle">
+<tspan x="1000.0" dy="0">HDMI / 外设 / 网页 / 事件记录</tspan>
+</text>
+</g>
+</svg>

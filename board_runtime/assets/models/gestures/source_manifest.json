@@ -1,0 +1,68 @@
+{
+  "repo": "opencv/opencv_zoo",
+  "commit": "48b10fa505aeb51fbd127fc60a5c660040e823b7",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "file": "palm_detection_mediapipe/demo.py",
+      "sha256": "c196e6f97463bfae71b7ed344fd050a8d11707090da518920d66e1f8fd0ac938",
+      "bytes": 5528,
+      "source": "https://github.com/opencv/opencv_zoo/blob/48b10fa505aeb51fbd127fc60a5c660040e823b7/models/palm_detection_mediapipe/demo.py"
+    },
+    {
+      "file": "palm_detection_mediapipe/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358,
+      "source": "https://github.com/opencv/opencv_zoo/blob/48b10fa505aeb51fbd127fc60a5c660040e823b7/models/palm_detection_mediapipe/LICENSE"
+    },
+    {
+      "file": "palm_detection_mediapipe/mp_palmdet.py",
+      "sha256": "f06ce44a9b77e12b49d72416388829fd1a481ffe7a516d914e5a8c6ca50710be",
+      "bytes": 93560,
+      "source": "https://github.com/opencv/opencv_zoo/blob/48b10fa505aeb51fbd127fc60a5c660040e823b7/models/palm_detection_mediapipe/mp_palmdet.py"
+    },
+    {
+      "file": "palm_detection_mediapipe/palm_detection_mediapipe_2023feb.onnx",
+      "sha256": "78ff51c38496b7fc8b8ebdb6cc8c1abb02fa6c38427c6848254cdaba57fcce7c",
+      "bytes": 3905734,
+      "source": "https://github.com/opencv/opencv_zoo/blob/48b10fa505aeb51fbd127fc60a5c660040e823b7/models/palm_detection_mediapipe/palm_detection_mediapipe_2023feb.onnx"
+    },
+    {
+      "file": "palm_detection_mediapipe/README.md",
+      "sha256": "b65e38ecbb12a2869772d38b30442097ad5494f798c9963169dd185b009d51e2",
+      "bytes": 2031,
+      "source": "https://github.com/opencv/opencv_zoo/blob/48b10fa505aeb51fbd127fc60a5c660040e823b7/models/palm_detection_mediapipe/README.md"
+    },
+    {
+      "file": "handpose_estimation_mediapipe/demo.py",
+      "sha256": "2288dff331c6a847f962a8ba9b84adb43ffda29d91e467c54dbfcbd789faf792",
+      "bytes": 16471,
+      "source": "https://github.com/opencv/opencv_zoo/blob/48b10fa505aeb51fbd127fc60a5c660040e823b7/models/handpose_estimation_mediapipe/demo.py"
+    },
+    {
+      "file": "handpose_estimation_mediapipe/handpose_estimation_mediapipe_2023feb.onnx",
+      "sha256": "db0898ae717b76b075d9bf563af315b29562e11f8df5027a1ef07b02bef6d81c",
+      "bytes": 4099621,
+      "source": "https://github.com/opencv/opencv_zoo/blob/48b10fa505aeb51fbd127fc60a5c660040e823b7/models/handpose_estimation_mediapipe/handpose_estimation_mediapipe_2023feb.onnx"
+    },
+    {
+      "file": "handpose_estimation_mediapipe/LICENSE",
+      "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+      "bytes": 11357,
+      "source": "https://github.com/opencv/opencv_zoo/blob/48b10fa505aeb51fbd127fc60a5c660040e823b7/models/handpose_estimation_mediapipe/LICENSE"
+    },
+    {
+      "file": "handpose_estimation_mediapipe/mp_handpose.py",
+      "sha256": "7d67bfc645f8807496af26b8f393e084d72113cf5293a520b0e9905e9a331aa5",
+      "bytes": 9463,
+      "source": "https://github.com/opencv/opencv_zoo/blob/48b10fa505aeb51fbd127fc60a5c660040e823b7/models/handpose_estimation_mediapipe/mp_handpose.py"
+    },
+    {
+      "file": "handpose_estimation_mediapipe/README.md",
+      "sha256": "1677da308d16a155ddbff720ad612abb38117e298a532f8b63b2935b31106e6a",
+      "bytes": 1949,
+      "source": "https://github.com/opencv/opencv_zoo/blob/48b10fa505aeb51fbd127fc60a5c660040e823b7/models/handpose_estimation_mediapipe/README.md"
+    }
+  ],
+  "complete": true
+}

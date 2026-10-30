@@ -1,0 +1,145 @@
+{
+  "trained": true,
+  "production_qualified": false,
+  "training_run": "v6_regions_finger_rehearsal_v5_20261029",
+  "object_classes": [
+    "person",
+    "cell phone",
+    "tv",
+    "chair",
+    "couch",
+    "bed",
+    "bottle",
+    "cup",
+    "book",
+    "laptop"
+  ],
+  "region_classes": [
+    "fallen",
+    "normal_person",
+    "hand_region",
+    "partial_body",
+    "nonhuman_object",
+    "reviewed_nonfall"
+  ],
+  "input_height": 192,
+  "input_width": 320,
+  "base_checkpoint_sha256": "c9b27dbb84235dad899a7d15866bdd2dba7842ccd0c8a87471d495b94d9df0f7",
+  "index_sha256": "26451737a4f460989b7090445746f049e49be407362c15c2d3a196ac8a02719b",
+  "frozen_fall_output_error": 0.0,
+  "roi_selection": {
+    "key": [
+      1,
+      585,
+      -19,
+      -0.08093297399580479
+    ],
+    "epoch": 28,
+    "metrics": {
+      "original_falldataset": {
+        "gt": 698,
+        "base_tp": 571,
+        "kept_tp": 571,
+        "negative_images": 44,
+        "base_fp_images": 2,
+        "kept_fp_images": 2
+      },
+      "CAUCAFall_v4": {
+        "gt": 15,
+        "base_tp": 14,
+        "kept_tp": 14,
+        "negative_images": 25,
+        "base_fp_images": 3,
+        "kept_fp_images": 3
+      },
+      "user_camera": {
+        "gt": 0,
+        "base_tp": 0,
+        "kept_tp": 0,
+        "negative_images": 27,
+        "base_fp_images": 0,
+        "kept_fp_images": 0
+      },
+      "FreiHAND_research": {
+        "gt": 0,
+        "base_tp": 0,
+        "kept_tp": 0,
+        "negative_images": 24,
+        "base_fp_images": 19,
+        "kept_fp_images": 14
+      },
+      "COCO_train2017": {
+        "gt": 0,
+        "base_tp": 0,
+        "kept_tp": 0,
+        "negative_images": 0,
+        "base_fp_images": 0,
+        "kept_fp_images": 0
+      }
+    },
+    "qualified": true
+  },
+  "verifier_sha256": "13db4bb4a9c28ab4de9af969b2c9032587863242d651169cf5ad852c88e74c01",
+  "onnx_sha256": "59153f08d231450bd330ca4cc77a3c0162d15616a6cfc40e7ed003c9dfb52f31",
+  "strong_nonfall_threshold": 0.975,
+  "fall_probability_ceiling": 0.025,
+  "safety": "No person-absence veto; uncertain ROI retains original fall candidate",
+  "limitations": [
+    "Development/regression only; no fresh field acceptance",
+    "Coarse hand ROIs never used for box regression"
+  ],
+  "nonfall_aggregation": "sum_of_nonfall_classes",
+  "descriptor_abi": "pyramid64_adaptive3_global_v1",
+  "calibration_scope": "Development and previously seen32-image regression; new camera sequence training-only",
+  "architecture": "v6_roi",
+  "object_policy": "Optional pinned pretrained NanoDet labels every4s; never an alarm veto; no second concurrent worker",
+  "ncnn": {
+    "param": "shared_semantic.ncnn.param",
+    "weights": "shared_semantic.ncnn.bin",
+    "param_sha256": "43c334eb7096aa07c6157e41334b78233eda064707e87089ccdf5cdb0ea566a1",
+    "weights_sha256": "f0e1dfb3272262a8e726dd3c35eeaa9de98bd1987558df7af75bb55f7e7247c0",
+    "library_sha256": "f32edd1292bf9214881bd5a0da2d7bf14be06ed5f8520caa259bd8ed8c0993e9",
+    "input_name": "in0",
+    "output_names": [
+      "out0",
+      "out1",
+      "out2",
+      "out3",
+      "out4",
+      "out5"
+    ],
+    "output_layouts": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "weight_precision": "fp32"
+  },
+  "refinement": {
+    "best_epoch": 24,
+    "threshold_unchanged": true,
+    "backbone_unchanged": true,
+    "scope": "Cached labelled training data and old reviewed camera training sequence; camera augmentation uses training split only; no new field acceptance",
+    "reviewed_capture": "E:\\Zynq_project\\ac880_fall\\out\\gesture_latency_20261029\\training_rehearsal",
+    "capture_manifest_sha256": "f904fc210609bd0d78e1918087015bbfb18eb78c3b283ec02b5d51cf1d953743",
+    "capture_frames": 24,
+    "previous_model": "E:/Zynq_project/ac880_fall/models/fall_regions_refined_v4",
+    "regression_report_sha256": "e55b0d4d7d641c0d14fde18a408ea5f7fd965a56f0b56fc55ebac0c06a01b68f"
+  },
+  "original_camera_refinement": {
+    "report_sha256": "2c91254d71d6083cd7f7e4f9c5f32fed673806fe2dfdbc274975029c6a24f7ef",
+    "new_sequence_split": "train_only",
+    "frames": 12,
+    "new_training_candidates": 17,
+    "new_training_retained": 0
+  },
+  "reference_verifier": {
+    "file": "reference_verifier.npz",
+    "sha256": "72ac713edd3f34c946336501041b20657680904cbf5aff0ab46d136d21a2df29",
+    "source_model": "fall_regions_refined_v4",
+    "policy": "Retain a fall candidate only when both current and reference ROI heads accept it; shared frozen backbone"
+  }
+}

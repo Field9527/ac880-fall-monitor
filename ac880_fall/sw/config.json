@@ -1,0 +1,66 @@
+{
+    "_comment": "AC880 rules baseline; CNN training and validation pending",
+    "overlay_path": "/home/xilinx/fall/ac880_fall.bit",
+    "video": {
+        "width": 1280,
+        "height": 720,
+        "bpp": 16,
+        "num_frames": 3,
+        "poll_hz": 10
+    },
+    "motion_detect": {
+        "en": 1,
+        "base_addr": "0x44A10000",
+        "thresh": 24,
+        "min_area": 200,
+        "trig_n": 3,
+        "ds_factor": 8,
+        "morph_cfg": 3,
+        "mode": 0,
+        "bg_alpha": 4,
+        "roi_pad": 8,
+        "row_th": 3,
+        "col_th": 3
+    },
+    "cnn_accel": {
+        "base_addr": "0x40000000",
+        "thresh_q7": 89,
+        "weights_file": "/home/xilinx/fall/w_int8.bin",
+        "bias_file": "/home/xilinx/fall/b_int8.bin"
+    },
+    "decision": {
+        "ema_alpha": 0.4,
+        "alarm_thr": 0.6,
+        "score_th": 0.7,
+        "quiet_frames": 10,
+        "candidate_min_s": 0.5,
+        "armed_min_s": 1.0,
+        "roi_cooldown_ms": 200,
+        "trig_n": 3
+    },
+    "logging": {
+        "events_file": "/home/xilinx/fall/events.jsonl",
+        "snapshot_dir": "/home/xilinx/fall/snapshots",
+        "log_file": "/home/xilinx/fall/logs/fall_detect.log",
+        "save_snapshots": true,
+        "snapshot_scale": 2
+    },
+    "output": {
+        "gpio_alarm": true,
+        "http_webhook": "",
+        "mqtt_topic": ""
+    },
+    "backend": "rules",
+    "rules": {
+        "processing_width": 320,
+        "warmup_s": 5.0,
+        "foreground_threshold": 28,
+        "min_foreground_area": 180,
+        "max_foreground_fraction": 0.5,
+        "upright_ratio": 0.85,
+        "lying_ratio": 1.25,
+        "height_ratio": 0.72,
+        "drop_ratio": 0.12,
+        "transition_window_s": 4.0
+    }
+}

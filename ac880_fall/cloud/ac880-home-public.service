@@ -1,0 +1,19 @@
+[Unit]
+Description=AC880 authenticated public web gateway
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStartPre=/usr/sbin/nginx -t -c /opt/ac880-home-preview/public.conf
+ExecStart=/usr/sbin/nginx -c /opt/ac880-home-preview/public.conf -g "daemon off;"
+ExecReload=/bin/sh -c '/usr/sbin/nginx -t -c /opt/ac880-home-preview/public.conf && /usr/sbin/nginx -c /opt/ac880-home-preview/public.conf -s reload'
+KillSignal=SIGQUIT
+TimeoutStopSec=15
+Restart=on-failure
+RestartSec=3
+PrivateTmp=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

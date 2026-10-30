@@ -1,0 +1,549 @@
+{
+  "version": 1,
+  "review_method": "Visual inspection of fixed first 64 missing-XML images in each original split; ambiguous images excluded; not independently human-audited",
+  "limitations": [
+    "Small selected negative subset, not a representative field benchmark",
+    "Do not relabel missing annotations as negative automatically"
+  ],
+  "items": [
+    {
+      "filename": "people(100).jpg",
+      "sha256": "b96bb6431934fc6828d6f2d3196fbdbb9f0bc023154a5adb8aa1d49aac6a0e84",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(140).jpg",
+      "sha256": "b759ec2efc4fb43611ef1b8e15d08899ed7e9b70b51fa7ef17ac46e36abeb180",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(1536).jpg",
+      "sha256": "41253146de004702e8e3533f384ccca83de2b17dccc702f3f44642eb1c67272c",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(1616).jpg",
+      "sha256": "1308f33e4b6a0543f07949402b059191988c19fc88e30b8fd6652b600de529a1",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(1937).jpg",
+      "sha256": "13593493d3f955cbef005190085638478f24f5f120a540ca5223e18f741d5c24",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(2000).jpg",
+      "sha256": "c322bf69213f7356faa1e112afa73c2ba44c3ba623481c39f45635e10d8a4bcb",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(2009).jpg",
+      "sha256": "86ca20c9de0fe9845f3e361669a80d17610d9f53ba7238ee683bbfc6582d9012",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(2263).jpg",
+      "sha256": "369d4d8d33aed4b744146be0af701b7ea25261d33ee1a56290e11189448460d6",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(2278).jpg",
+      "sha256": "433e2cd60684f2a0625929cf96d7fc7db7c4dad03362702daaee4fd5c20ebdf0",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(2297).jpg",
+      "sha256": "6d0fbed8d3a28056013e04910a2f3cd0bf1c6136f20961791821fa702ea1fa3b",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(2385).jpg",
+      "sha256": "1f8d208a6d4918d06a5249534b2cfa8f19ce1dfd8bedd112fc9e22f4be0a7949",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(2434).jpg",
+      "sha256": "305b9d5b43fe7ae5974780690a723639c5d0ccf5715a6798020f4372dc0063e7",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(2578).jpg",
+      "sha256": "4e190400dcf2fb2b8fe79cdb20bbcb79b328d2cf5499f6cf59843fd242e44585",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(2605).jpg",
+      "sha256": "d604bcf3c77d0f8bf3f06a8a0935431a51bff4a8f0a328e612e663f7c170f1ed",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(2673).jpg",
+      "sha256": "8d53e283c2fc89cf1a01c58ea677fec35c733e370906e3a41c1dc686d8117680",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(2774).jpg",
+      "sha256": "a9b69546e93cf6213d85380a9d5f4ad418540f03b0b9997113b1c3fbbb72523e",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(2823).jpg",
+      "sha256": "6342b680f8ca4dede10e33daba89d076bccea11e86c5eafe5882bb628b097f0c",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(2913).jpg",
+      "sha256": "44d2161d7c4e70a80c940606d07ee7dbc4c4b84eb5467cb95dcda369f283a73c",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(2967).jpg",
+      "sha256": "9c3b0a63e329be3d617474e3528e06c94a9037ebb6c09c8eb669bf35ed661ec8",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(3456).jpg",
+      "sha256": "1d8488cdcadd7a91b0230d443386f9f49cc7d34793bc8fefd5d6eba20f456097",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(346).jpg",
+      "sha256": "afa9750962e7bb50cd09435aa9046af5f38d2e26e83022f5ae02c5116f0222c0",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(4165).jpg",
+      "sha256": "737706c4fa092bc20f61f08f74e93436ede3f5d8fb970983a04774d46531f4da",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(4175).jpg",
+      "sha256": "cdc1048690657c8c89f71564e436d660677de0cbf575cc311224eee98ca7796f",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(4194).jpg",
+      "sha256": "238caeed2c36e25f1a5c5aa140a64019ce278163684f17718834ce5812c80117",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(4723).jpg",
+      "sha256": "5578cda3b725ec21964d0246ae0dca26cd386d8cdbeea0fea8510b83db85d09b",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(4724).jpg",
+      "sha256": "43cc73e3e48f59e395cd74f9160394c9f04cb3c82d147735d513da8446a87634",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(4821).jpg",
+      "sha256": "9315316c20cb1c0473c982d565d3112d82908b8d565198f0d7440718ef802ef2",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(4899).jpg",
+      "sha256": "8975e35f0a1a67759c3095c3643481c9afec4cf3cc001f08c12876b4512e8942",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(4907).jpg",
+      "sha256": "3636551f6c16507821614906135db00185638065d3eff921b3d7b201ee5bfaf3",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(5085).jpg",
+      "sha256": "89aac343ad2e7bb61f6af96e700693ee6208c1cf555edea48078f3a14e58086c",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(5089).jpg",
+      "sha256": "7847f211f69782000b14c74ef896403cfec5d0b783abe8fab63ae5dfe28f6593",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(5090).jpg",
+      "sha256": "51f19fb2f2157d3d2986704824f5bc365b2253e5df3748a9fdffb675c025d703",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(5116).jpg",
+      "sha256": "e14f58d3df616bc236f58c6a71f82a87caefe8192daa4a79be477156d3df7ecc",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(5129).jpg",
+      "sha256": "bba0323a70da6094af521cee14a0dfa659d1f163304cc7b34b8d88c1f082eba7",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(5152).jpg",
+      "sha256": "ae68893b63efb372785616c5bbbd32341892505b2e0b9d02e8634a6e1a5bfc49",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(5174).jpg",
+      "sha256": "c16e353ed6602942dc8ce56b8642706bfc0930677504e85bb475802dbc5b76db",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(5233).jpg",
+      "sha256": "3f47d8ec3feadefade495016fd12d1fe57219e12c5ee36482389b6ede3f2f35a",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(5260).jpg",
+      "sha256": "3aeee3f3392c96cc0bc5c4063db5d369f026b07071328e1ff471d54e1eee74e8",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(5292).jpg",
+      "sha256": "8367962ce2d0e811bde6d1c352433b688b922f0b8bf7b2956a548ca2e93e13fb",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(5296).jpg",
+      "sha256": "7c12bde6fdee086d2a8246545f5b4831e79c59412a8cf860f4598b12998d0837",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(5303).jpg",
+      "sha256": "432a1246a10aea5d189e2ce6e35a96b29c6aae56f74353aea5214c12dca9eea0",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(5313).jpg",
+      "sha256": "4e2f39c9f340fdd214f9c7eb10fe6daa94ab61716437360f233a70a9f874fb8d",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(5377).jpg",
+      "sha256": "295a6a55d0b4ce47a140882822c1cd56718c303ab9151add3c763c55f18cff1f",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(5394).jpg",
+      "sha256": "a44e586a4014e7998131db6612386178a69c07ccf78d5f3836dc8a73098d1a17",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "val"
+    },
+    {
+      "filename": "people(1038).jpg",
+      "sha256": "b58863520aa3bdf8e1977cae4005e687f5b3b5b37b705a442433fc32c86d1d2c",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1078).jpg",
+      "sha256": "3dbf1e686fc63e7c7b4a771c234078ecf7776ba11d63e8c27e90358fcd4c7720",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1088).jpg",
+      "sha256": "cecf98bfb56e651e8c900c14e8a001e235e74db3e7f855ec04b130592a37e315",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(11).jpg",
+      "sha256": "200189842ad6c3f7a6e21192490890f4afd6464391bf540a38810fcc13af6278",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(114).jpg",
+      "sha256": "b8a37866276f76ffc2eede791cff5e7d9d93c6588d60851ee7f0ed78599a659a",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1160).jpg",
+      "sha256": "e0c71c704e5103027b9067ee88605160621eaa22dab674de7f12b120f07a19bf",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1161).jpg",
+      "sha256": "6841ef25644aa124003c5f0f180123a7ca47bcbc5ff567e8d83fc9dad7779094",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1163).jpg",
+      "sha256": "37f22c2a4748ef3004e9578030dcd998681ae3f56137ae6e948c47deabe1e920",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1191).jpg",
+      "sha256": "375069898f9763fccfba792d378478aa341b3b7d3fc77611ffe8bd9dc6d85917",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1256).jpg",
+      "sha256": "d29d9bf499c70c6c3396a187aa8c8d66e9273f48f2918d4a5ec75534c36ea80a",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1262).jpg",
+      "sha256": "9612027ebdcc4339aa40246dc85aa751dbf6dfc8a4027a606845c5da6655a643",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1264).jpg",
+      "sha256": "ac64042c1887c99771845f0da5c5878b6fadf8cf681162f09bfd9c7b172ee90a",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1267).jpg",
+      "sha256": "e05a0b32dbf2a354b78f48aa7f124c4d8cfb977f4ed529c583f563f1d4aa64a1",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(128).jpg",
+      "sha256": "bf85839db690f4f340de300bedd56acbcd0c3b5d15b716389b01e71066ab63b7",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1295).jpg",
+      "sha256": "1334ca9a42e59713df270540ac2d8130cdc16a87041b630e93c15a256a981784",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1303).jpg",
+      "sha256": "8df3d1d525be663160876e2392fdb834dbafaec7315c73a1c21311c7510a8525",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1394).jpg",
+      "sha256": "b4b1eaa38fdcb3403ecea14800ee0935552f2238c909e83ebf06e942d4486353",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1481).jpg",
+      "sha256": "fc79323379bccb06f7cad015eabb85898b52ae67505c7bbe6a448fbf02873ab8",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1557).jpg",
+      "sha256": "c765a5c8ec483532c3ea22b8cbc65d97628273588919a8d6932b12cb687fc44e",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1569).jpg",
+      "sha256": "403a541620c5b201142e845cafa03f19c85a0f974ca435a49d99dc3f31f13d6c",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1571).jpg",
+      "sha256": "b7ef8d6593d3f5677afb5d9cec8a25d73ad712fd39ceca29674b9a10190ddc5e",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1605).jpg",
+      "sha256": "8fe5f5778e5c87184289ed0370f65bce9d18ab57c4419465aa36c63ca547f056",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1661).jpg",
+      "sha256": "83b0071ebe148e1cec49eef1e1c240334280ea5bba067612279938e12d7e946b",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1667).jpg",
+      "sha256": "425d4b423966dd75101a63b2bdb84bce519bf106955d87279215e3537347eb0f",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1687).jpg",
+      "sha256": "007a4ca43a2d5d081be99fa40ff73c6559d4bb0cb827e716dbb557b058717c49",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(171).jpg",
+      "sha256": "60d20f2dba75162145d6db34fd739b5e80d695cd11dd68208bf384ea272d6f6d",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1742).jpg",
+      "sha256": "839236dcfaa377517e33ee5490a6df33fcc2e37eb5355ab95b8d5bc85abae6cc",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1802).jpg",
+      "sha256": "62ba79a7981857c3456929326c9dbe4a1095cb2206dc799b72b9b85eb22c6fcb",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1915).jpg",
+      "sha256": "fbc4f0385a07cc1319ddf958506d7356b55ce6069cd6d6b3eb65e4ee975b0b5e",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1919).jpg",
+      "sha256": "ca45a4dc61f861d9e18f04b36cf76f0f8ca6b981f02393a33a3fe320f289e9e5",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1932).jpg",
+      "sha256": "2e3f18c65297057c24a08e1dfc31de553c22ab7214a6aa707a02084565652fbb",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1941).jpg",
+      "sha256": "4a4dbea245a9992e56a6708e9a44c8eddc6c5aa75dc80708a58826809270888c",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    },
+    {
+      "filename": "people(1947).jpg",
+      "sha256": "fcd40f05e1ef04d89d30925d1982ec6b072ea7b629456dfe8d0ff95adf1e0def",
+      "label": "no_visible_fallen_person",
+      "reviewer": "assistant_visual_review",
+      "split": "train"
+    }
+  ]
+}

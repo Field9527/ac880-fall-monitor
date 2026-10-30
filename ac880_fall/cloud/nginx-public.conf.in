@@ -1,0 +1,71 @@
+# Standalone configuration, activated after DNS and a valid TLS certificate exist.
+# Replace __DOMAIN__ with the actual hostname before testing or installing.
+user www-data;
+worker_processes auto;
+pid /run/ac880-home-public.pid;
+error_log /opt/ac880-home-preview/logs/public-error.log warn;
+
+events { worker_connections 512; }
+
+http {
+    server_tokens off;
+    access_log /opt/ac880-home-preview/logs/public-access.log;
+    client_max_body_size 4k;
+    client_header_timeout 10s;
+    client_body_timeout 10s;
+    send_timeout 20s;
+
+    server {
+        listen 80;
+        server_name __DOMAIN__;
+        location /.well-known/acme-challenge/ {
+            root /opt/ac880-home-preview/acme;
+        }
+        location / { return 301 https://__DOMAIN__$request_uri; }
+    }
+
+    server {
+        listen 443 ssl sndbuf=64k;
+        server_name __DOMAIN__;
+        ssl_certificate /etc/letsencrypt/live/__DOMAIN__/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/__DOMAIN__/privkey.pem;
+        ssl_protocols TLSv1.2 TLSv1.3;
+        ssl_session_cache shared:AC880TLS:1m;
+        auth_basic "AC880 Home";
+        auth_basic_user_file /opt/ac880-home-preview/users.htpasswd;
+        add_header X-Content-Type-Options nosniff always;
+        add_header Referrer-Policy same-origin always;
+
+        location = /stream.mjpg {
+            proxy_pass http://127.0.0.1:18087;
+            proxy_http_version 1.1;
+            proxy_set_header Connection "";
+            proxy_set_header Authorization "";
+            proxy_buffering off;
+            proxy_cache off;
+            proxy_max_temp_file_size 0;
+            proxy_read_timeout 75s;
+        }
+
+        location = /api/state {
+            proxy_pass http://127.0.0.1:18087;
+            proxy_set_header Authorization "";
+            proxy_read_timeout 10s;
+        }
+
+        location / {
+            proxy_pass http://127.0.0.1:18088;
+            proxy_set_header Host $http_host;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header Authorization "";
+            proxy_http_version 1.1;
+            proxy_set_header Connection "";
+            proxy_buffering off;
+            proxy_cache off;
+            proxy_max_temp_file_size 0;
+            proxy_connect_timeout 5s;
+            proxy_read_timeout 75s;
+            proxy_send_timeout 20s;
+        }
+    }
+}
