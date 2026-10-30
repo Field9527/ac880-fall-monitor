@@ -96,78 +96,11 @@ class AlarmLED:
                 self.clock_was_enabled = True
 
 
-def annotate(frame, result, observation, in_place=False):
-    import cv2
+def annotate(frame, result, observation, in_place=False, environment=None, gesture=None):
+    from display_ui import HUD
 
     image = frame if in_place else frame.copy()
-    state = result["state"]
-    color = 0xF800 if state == fd.FallState.ALARM else (0xFFE0 if state else 0x07E0)
-    bbox = observation["bbox"]
-    if bbox:
-        x, y, w, h = bbox
-        cv2.rectangle(image, (x, y), (x + w, y + h), int(color), 3)
-    if observation.get("show_objects"):
-        for obj in observation.get("objects", [])[:8]:
-            x, y, w, h = obj["bbox"]
-            if w > 1 and h > 1:
-                cv2.rectangle(image, (x, y), (x + w, y + h), 0x07FF, 1)
-                cv2.putText(
-                    image,
-                    obj["name"] + " %.2f" % obj["score"],
-                    (x, max(70, y - 4)),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.5,
-                    0x07FF,
-                    1,
-                )
-    for reviewed in observation.get("reviewed_candidates", [])[:3]:
-        x, y, w, h = reviewed["bbox"]
-        cv2.rectangle(image, (x, y), (x + w, y + h), 0x7BEF, 1)
-        cv2.putText(
-            image, "REVIEWED", (x, max(70, y - 4)), cv2.FONT_HERSHEY_SIMPLEX, 0.45, 0x7BEF, 1
-        )
-    hand = observation.get("hand")
-    if hand:
-        x, y, w, h = hand["bbox"]
-        cv2.rectangle(image, (x, y), (x + w, y + h), 0x07FF, 2)
-        for u, v in hand["landmarks"]:
-            cv2.circle(image, (int(u), int(v)), 3, 0xFFE0, -1)
-        cv2.putText(
-            image,
-            "HAND: " + hand["name"].upper(),
-            (x, max(78, y - 8)),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            0.65,
-            0x07FF,
-            2,
-        )
-    image[:54, :] = 0
-    label = result["state_name"] if observation["ready"] else "BACKGROUND: KEEP SCENE EMPTY"
-    if not observation["ready"] and observation.get("backend") == "fall_lite":
-        label = "MODEL STARTING"
-    if observation.get("reason") == "await_background":
-        label = "PREVIEW: WAITING FOR EMPTY SCENE"
-    if observation.get("test_only"):
-        label = "TEST INPUT: " + label
-    if observation.get("test_context") == "phone_screen_replay":
-        label = "PHONE REPLAY: " + label
-    score_label = "FALL SCORE" if observation.get("backend") == "fall_lite" else "RULE SCORE"
-    text = "%s  %s %.2f" % (label, score_label, result["pe"])
-    if observation.get("reason") == "preview_only":
-        text = "CAMERA PREVIEW"
-    if observation.get("coverage_limited") or result.get("tracking_limited"):
-        text += "  COVERAGE LIMITED"
-    cv2.putText(image, text, (12, 34), cv2.FONT_HERSHEY_SIMPLEX, 0.8, int(color), 2)
-    if observation.get("reason") == "scene_changed_recalibrate":
-        cv2.putText(
-            image,
-            "SCENE CHANGED: RESTART TO CALIBRATE",
-            (12, 76),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            0.7,
-            0xFFE0,
-            2,
-        )
+    HUD.draw(image, result, observation, environment, gesture)
     return image
 
 
@@ -408,9 +341,6 @@ def main():
     preview_writer = None
     home_web = home_outputs = None
     environment = None
-    from environment import EnvironmentHUD
-
-    environment_hud = EnvironmentHUD()
     last_home_status = -float("inf")
     timings = {k: deque(maxlen=4096) for k in ("copy_ms", "draw_ms", "present_ms", "interval_ms")}
     first_camera_count = first_camera_time = last_present = None
@@ -822,15 +752,23 @@ def main():
                 home_outputs.tick(result["state"] == fd.FallState.ALARM)
             elif led:
                 led.set(result["state"] == fd.FallState.ALARM)
+            observation["gesture_enabled"] = bool(
+                getattr(segmenter, "gestures_enabled", lambda: False)()
+            )
             drawing_at = time.monotonic()
+            environment_value = environment.poll(loop) if environment is not None else None
             shown = (
-                annotate(frame, result, observation, in_place=dma is not None)
+                annotate(
+                    frame,
+                    result,
+                    observation,
+                    in_place=dma is not None,
+                    environment=environment_value,
+                    gesture=gesture_controller.snapshot(loop),
+                )
                 if frame is not None
                 else None
             )
-            environment_value = environment.poll(loop) if environment is not None else None
-            if shown is not None:
-                environment_hud.draw(shown, environment_value)
             timings["draw_ms"].append((time.monotonic() - drawing_at) * 1000)
             if home_web is not None and shown is not None:
                 status = None

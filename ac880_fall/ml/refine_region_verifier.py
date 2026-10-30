@@ -15,7 +15,7 @@ from torch.nn import functional as F
 from shared_semantic_model import RegionHead
 from train_shared_heads import all_probabilities, roi_metrics
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "sw"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "board_runtime/app"))
 from fall_lite import rgb565, letterbox, decode, flatten_heads, anchors_for_shape
 from semantic_features import FALL_REGION_OUTPUT_NAMES, region_descriptor
 

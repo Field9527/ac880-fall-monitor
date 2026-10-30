@@ -9,7 +9,7 @@ import sys
 import cv2
 import numpy as np
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "sw"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "board_runtime/app"))
 from fall_lite import letterbox, anchors_for_shape, flatten_heads, decode, rgb565
 from semantic_features import FALL_REGION_OUTPUT_NAMES, FeatureRegions
 from semantic_decode import box_iou

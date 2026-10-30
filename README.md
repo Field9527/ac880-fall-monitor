@@ -49,20 +49,30 @@
 
 摄像头及 HDMI 使用 1280×720；显示刷新上限为 12 FPS。网页视频采用 640×360、JPEG 质量 60、发送上限 15 FPS。上述上限是显示或传输配置，不代表模型识别频率。
 
+## HDMI 显示
+
+顶部显示监护状态、跌倒评分和输入模式，底部显示温湿度、手势提示及视频信息。报警使用红色状态和画面边框；过期环境数据隐藏数值，手机回放明确标记。界面面板在信息变化时才重新绘制，直接叠加到 RGB565 显示缓冲区。
+
+![HDMI 界面布局示意](docs/figures/hdmi_ui.png)
+
+图中为布局预览与示意数据，不作为识别或传感器实测结果。
+
 ## 源码导航
 
 源码按板端软件、硬件、模型和远程服务组织：
 
 | 入口 | 内容 |
 | --- | --- |
-| [板端软件](./ac880_fall/sw/) | 硬件接入、识别、调度、判决、显示、网页及软件测试 |
-| [运行配置](./ac880_fall/sw/config_current.json) | 板端参数配置 |
+| [板端软件](./board_runtime/app/) | 硬件接入、识别、调度、判决、显示与网页；只保留一份源码 |
+| [运行配置](./board_runtime/config.json) | 板端参数配置 |
 | [板端运行包](./board_runtime/) | 配对模型、bit/hwh、NCNN、程序和校验清单 |
 | [硬件工程](./hardware/current/) | 顶层 RTL、视频与外设逻辑、Block Design、约束及重建脚本 |
 | [模型训练与导出](./ac880_fall/ml/) | 数据处理、训练、区域复核及模型导出 |
 | [启动和部署脚本](./ac880_fall/scripts/) | 运行包构建、电脑网关、云端部署及验证工具 |
 | [云端服务](./ac880_fall/cloud/) | Nginx 配置、服务模板和共享视频转发 |
-| [技术文档与结构图](./docs/) | 技术报告、接口说明、结构图和演示分镜 |
+| [技术文档与结构图](./docs/) | 技术报告、使用说明、结构图和界面布局 |
+
+板端源码集中在 `board_runtime/app/`，部署时复制整个 `board_runtime/` 即可。训练程序、电脑网关及云端配置单独存放，测试位于 `ac880_fall/tests/`。
 
 ## 使用说明
 
@@ -143,11 +153,11 @@ sudo shutdown -h now
 在已有依赖环境中，于仓库根目录执行软件回归：
 
 ```powershell
-$env:PYTHONPATH = 'ac880_fall/ml;ac880_fall/sw'
-python -c "import cache_env,unittest,sys; r=unittest.TextTestRunner().run(unittest.defaultTestLoader.discover('ac880_fall/sw',pattern='test*.py')); sys.exit(not r.wasSuccessful())"
+$env:PYTHONPATH = 'ac880_fall/ml;board_runtime/app'
+python -c "import cache_env,unittest,sys; r=unittest.TextTestRunner().run(unittest.defaultTestLoader.discover('ac880_fall/tests',pattern='test*.py')); sys.exit(not r.wasSuccessful())"
 ```
 
-已完成 102 项软件回归测试，以及视频、外设和 HTTPS 访问链路的集成检查。软件回归检查程序逻辑，不等同于识别准确率或真实人员现场验收；手机屏幕回放单独作为集成测试记录。
+当前方案 87 项软件回归通过，另已完成视频、外设和 HTTPS 访问链路的集成检查。软件回归检查程序逻辑，不等同于识别准确率或真实人员现场验收；手机屏幕回放单独作为集成测试记录。
 
 识别仍存在偶发手部误报、部分跌倒漏报和手势响应偏慢的情况；DHT11 湿度校准、硬件方法学及 CDC 问题仍需完善。测试条件与结果见 [技术报告](./docs/technical_report.md) 的完成情况及性能参数部分。
 
@@ -155,4 +165,4 @@ python -c "import cache_env,unittest,sys; r=unittest.TextTestRunner().run(unitte
 
 训练数据、用户原始画面、访问凭据和工具缓存不包含在源码提交中。模型、日志和构建输出统一保存在 E 盘，缓存使用 `E:/Zynq_cache`，临时文件使用 `E:/Zynq_cache/temp`。
 
-第三方代码、模型和数据遵循各自许可与使用条件，汇总见 [许可与来源](THIRD_PARTY_NOTICES.md)；来源和许可见 [运行时声明](./ac880_fall/sw/runtime/licenses/) 与 [数据来源说明](./ac880_fall/sw/runtime/DATA_SOURCES.md)。
+第三方代码、模型和数据遵循各自许可与使用条件，汇总见 [许可与来源](THIRD_PARTY_NOTICES.md)；来源和许可见 [运行时声明](./board_runtime/assets/licenses/) 与 [数据来源说明](./board_runtime/assets/DATA_SOURCES.md)。

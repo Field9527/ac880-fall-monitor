@@ -1,24 +1,8 @@
 {
   "files": {
-    "config.json": {
-      "bytes": 2015,
-      "sha256": "247efcc1d167782e693fa1257967dadf4877877690c767fbe74e9982465d1fd5"
-    },
-    "README.md": {
-      "bytes": 910,
-      "sha256": "ac646ae3a2216d9a15b93d00fb6f548866bbcca2e8616c257afcec2aad25e73b"
-    },
-    "run.sh": {
-      "bytes": 448,
-      "sha256": "a729ff69ef24fd0ee6df5b98c047829797eb24d7dc800d47c0ed4d4fe467e2d9"
-    },
-    "run_fall.sh": {
-      "bytes": 61,
-      "sha256": "70390a4016b37a140fdd43b18802bc0e8797e67ad4be439043c25784eec01455"
-    },
-    "run_home.sh": {
-      "bytes": 52,
-      "sha256": "55c5fb31760b5d01eaa01dc59d251b7cf03c984aecaf0df89cdd6733e1e65a48"
+    "app/display_ui.py": {
+      "bytes": 12069,
+      "sha256": "b3e405f1b3a41c100d3990e8009a11534dfd6684dbe2a62e73cc279c6cb075d9"
     },
     "app/dual_inference.py": {
       "bytes": 3655,
@@ -77,8 +61,8 @@
       "sha256": "9ab83dbe6bb6f350f0203a6063df700a9d84e34dff52ac046051af27ff32d7c7"
     },
     "app/realtime.py": {
-      "bytes": 45801,
-      "sha256": "58562e43c7c11a05fbb8d20613cbb99be890fe1ffa528f5bacbc8ba7d6c3b4bf"
+      "bytes": 44274,
+      "sha256": "9cfd070fefbec3b2c7f1273f9fdd750464be2c56a646de1fd080b46d2ce6484e"
     },
     "app/semantic_decode.py": {
       "bytes": 2853,
@@ -96,22 +80,6 @@
       "bytes": 5274,
       "sha256": "c92ceddf7a7f714291c20ba9e5ad9c207aa9f9f9445ddf8711d4ae0b21adc298"
     },
-    "assets/DATA_SOURCES.md": {
-      "bytes": 2556,
-      "sha256": "7fc2323a5e0134927f9cb4dee1898a1e02c95c651829c2f6ce5b192f15738fa4"
-    },
-    "assets/libncnn.so.1": {
-      "bytes": 892352,
-      "sha256": "f32edd1292bf9214881bd5a0da2d7bf14be06ed5f8520caa259bd8ed8c0993e9"
-    },
-    "assets/system.bit": {
-      "bytes": 4045684,
-      "sha256": "63c530b5afa8cb73fb23df1bfbe16ae2843d251f1e6cd604de55a930438a9ec5"
-    },
-    "assets/system.hwh": {
-      "bytes": 520015,
-      "sha256": "cdf215dd37ccdb86b521dc086a71701c6591c630d8ac4b78700d43f001bf88a5"
-    },
     "app/web/app.css": {
       "bytes": 15377,
       "sha256": "ea16345bc0eb564dbeed8854598b8fbc521b0d070e799b011cdb06b0756de186"
@@ -124,6 +92,18 @@
       "bytes": 10152,
       "sha256": "1312b7b97514dd20dc0100cd7a2c9c3997f0231ccb24a14dd8206a8946c4fa78"
     },
+    "assets/DATA_SOURCES.md": {
+      "bytes": 2556,
+      "sha256": "7fc2323a5e0134927f9cb4dee1898a1e02c95c651829c2f6ce5b192f15738fa4"
+    },
+    "assets/libncnn.so.1": {
+      "bytes": 892352,
+      "sha256": "f32edd1292bf9214881bd5a0da2d7bf14be06ed5f8520caa259bd8ed8c0993e9"
+    },
+    "assets/licenses/DejaVu-LICENSE.txt": {
+      "bytes": 4915,
+      "sha256": "c61ba9e8668a511cbd0bcfdee8329e02ca6ca4048abda6ca7ee8ac68a059776a"
+    },
     "assets/licenses/ncnn-LICENSE.txt": {
       "bytes": 6513,
       "sha256": "3a066e39806976fe274a042929523c68821c54bcf73369ed61aae2717edd54e8"
@@ -131,6 +111,30 @@
     "assets/licenses/opencv-zoo-Apache-2.0.txt": {
       "bytes": 11357,
       "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    "assets/models/gestures/gesture.json": {
+      "bytes": 1181,
+      "sha256": "cb5709da44853ffbf8218fc76fc5ec2f30d639e48fe847c1fc1cd2b69452a8c7"
+    },
+    "assets/models/gestures/hand_nchw.ncnn.bin": {
+      "bytes": 4047052,
+      "sha256": "56b2c1b64b1e24cbe20dbd36f0f68caa6d82e84c7faad91a2201b5e28074566a"
+    },
+    "assets/models/gestures/hand_nchw.ncnn.param": {
+      "bytes": 8174,
+      "sha256": "070b5315280b2bddbc38da6dd9047d311984b9371bccccf875cde0dd23f4a530"
+    },
+    "assets/models/gestures/palm_nchw.ncnn.bin": {
+      "bytes": 4024512,
+      "sha256": "d87b2cf3392803bc8be3d163ade404b5d6d2c7ba48c567ff9d1ff0c2aac0f00a"
+    },
+    "assets/models/gestures/palm_nchw.ncnn.param": {
+      "bytes": 12888,
+      "sha256": "d0ae66dcf8a8f5edf9ec998d9d149d311f137ec556709b800e349db71c2ce43b"
+    },
+    "assets/models/gestures/source_manifest.json": {
+      "bytes": 3536,
+      "sha256": "59a656d0737f3b82b745ef672172e567a1b5c6ed568c1708c1dbd83aa8fea69e"
     },
     "assets/models/reference_verifier.npz": {
       "bytes": 1003452,
@@ -156,32 +160,37 @@
       "bytes": 11421575,
       "sha256": "59153f08d231450bd330ca4cc77a3c0162d15616a6cfc40e7ed003c9dfb52f31"
     },
-    "assets/models/gestures/gesture.json": {
-      "bytes": 1181,
-      "sha256": "cb5709da44853ffbf8218fc76fc5ec2f30d639e48fe847c1fc1cd2b69452a8c7"
+    "assets/system.bit": {
+      "bytes": 4045684,
+      "sha256": "63c530b5afa8cb73fb23df1bfbe16ae2843d251f1e6cd604de55a930438a9ec5"
     },
-    "assets/models/gestures/hand_nchw.ncnn.bin": {
-      "bytes": 4047052,
-      "sha256": "56b2c1b64b1e24cbe20dbd36f0f68caa6d82e84c7faad91a2201b5e28074566a"
+    "assets/system.hwh": {
+      "bytes": 520015,
+      "sha256": "cdf215dd37ccdb86b521dc086a71701c6591c630d8ac4b78700d43f001bf88a5"
     },
-    "assets/models/gestures/hand_nchw.ncnn.param": {
-      "bytes": 8174,
-      "sha256": "070b5315280b2bddbc38da6dd9047d311984b9371bccccf875cde0dd23f4a530"
+    "assets/ui/monitor.ttf": {
+      "bytes": 21892,
+      "sha256": "931fe519d82189a7decef9df344e3deec61140f316631356042d44bcb14c8744"
     },
-    "assets/models/gestures/palm_nchw.ncnn.bin": {
-      "bytes": 4024512,
-      "sha256": "d87b2cf3392803bc8be3d163ade404b5d6d2c7ba48c567ff9d1ff0c2aac0f00a"
+    "config.json": {
+      "bytes": 2015,
+      "sha256": "247efcc1d167782e693fa1257967dadf4877877690c767fbe74e9982465d1fd5"
     },
-    "assets/models/gestures/palm_nchw.ncnn.param": {
-      "bytes": 12888,
-      "sha256": "d0ae66dcf8a8f5edf9ec998d9d149d311f137ec556709b800e349db71c2ce43b"
+    "README.md": {
+      "bytes": 1052,
+      "sha256": "b0ba62b4ddd395986538f97ff642a0532c36784e6167b845058fda157e867473"
     },
-    "assets/models/gestures/source_manifest.json": {
-      "bytes": 3536,
-      "sha256": "59a656d0737f3b82b745ef672172e567a1b5c6ed568c1708c1dbd83aa8fea69e"
+    "run.sh": {
+      "bytes": 448,
+      "sha256": "a729ff69ef24fd0ee6df5b98c047829797eb24d7dc800d47c0ed4d4fe467e2d9"
+    },
+    "run_fall.sh": {
+      "bytes": 61,
+      "sha256": "70390a4016b37a140fdd43b18802bc0e8797e67ad4be439043c25784eec01455"
+    },
+    "run_home.sh": {
+      "bytes": 52,
+      "sha256": "55c5fb31760b5d01eaa01dc59d251b7cf03c984aecaf0df89cdd6733e1e65a48"
     }
-  },
-  "training_run": "v6_regions_finger_rehearsal_v5_20261029",
-  "model_sha256": "59153f08d231450bd330ca4cc77a3c0162d15616a6cfc40e7ed003c9dfb52f31",
-  "experimental": true
+  }
 }

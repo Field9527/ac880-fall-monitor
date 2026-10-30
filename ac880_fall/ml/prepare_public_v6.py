@@ -8,8 +8,8 @@ import sys
 import cv2
 import numpy as np
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "sw"))
-from video_test import rgb565
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "board_runtime/app"))
+from fall_lite import rgb565
 
 
 def main():

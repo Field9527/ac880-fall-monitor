@@ -19,7 +19,7 @@ import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader, WeightedRandomSampler
 from torchvision.ops import box_iou
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "sw"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "board_runtime/app"))
 from fall_lite import anchors_for_shape, letterbox, decode
 from fall_lite_model import FallLite, flatten_heads, export_model
 

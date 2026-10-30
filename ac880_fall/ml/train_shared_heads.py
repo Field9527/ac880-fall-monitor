@@ -16,7 +16,7 @@ from torch import nn
 import torch.nn.functional as F
 from shared_semantic_model import SharedSemantic, RegionHead, flatten_objects, export_shared
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "sw"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "board_runtime/app"))
 from fall_lite import anchors_for_shape
 from semantic_features import OBJECT_CLASSES, REGION_CLASSES, region_descriptor
 from semantic_decode import box_iou, decode_objects, matched_count

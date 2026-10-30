@@ -11,7 +11,7 @@ import time
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "ml"))
 import cache_env
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "sw"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "board_runtime/app"))
 import numpy as np
 import requests
 from home_web import HomeWeb

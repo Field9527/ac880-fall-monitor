@@ -12,7 +12,7 @@ import torch
 from torch import nn
 from shared_semantic_model import SharedSemantic
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "sw"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "board_runtime/app"))
 from semantic_features import FALL_REGION_OUTPUT_NAMES
 
 

@@ -40,6 +40,7 @@ def build(a):
         "manage",
         "fall_detect",
         "realtime",
+        "display_ui",
         "pose_rules",
         "fall_lite",
         "ncnn_backend",
@@ -58,10 +59,17 @@ def build(a):
         "hand_region_review",
     )
     for name in names:
-        shutil.copyfile(root / "sw" / (name + ".py"), target / "app" / (name + ".py"))
-    for path in (root / "sw/web").iterdir():
+        shutil.copyfile(
+            root.parent / "board_runtime/app" / (name + ".py"), target / "app" / (name + ".py")
+        )
+    for path in (root.parent / "board_runtime/app/web").iterdir():
         if path.is_file():
             shutil.copyfile(path, target / "app/web" / path.name)
+    shutil.copytree(root.parent / "board_runtime/assets/ui", target / "assets/ui")
+    shutil.copyfile(
+        root.parent / "board_runtime/assets/licenses/DejaVu-LICENSE.txt",
+        target / "assets/licenses/DejaVu-LICENSE.txt",
+    )
     for name in (
         "shared_semantic.onnx",
         "shared_semantic.json",
@@ -92,13 +100,16 @@ def build(a):
         shutil.copyfile(a.hardware.with_suffix(ext), target / "assets" / ("system" + ext))
     shutil.copyfile(a.library, target / "assets/libncnn.so.1")
     shutil.copyfile(
-        root / "sw/runtime/licenses/ncnn-LICENSE.txt", target / "assets/licenses/ncnn-LICENSE.txt"
+        root.parent / "board_runtime/assets/licenses/ncnn-LICENSE.txt",
+        target / "assets/licenses/ncnn-LICENSE.txt",
     )
     shutil.copyfile(
-        root / "sw/runtime/licenses/opencv-zoo-Apache-2.0.txt",
+        root.parent / "board_runtime/assets/licenses/opencv-zoo-Apache-2.0.txt",
         target / "assets/licenses/opencv-zoo-Apache-2.0.txt",
     )
-    shutil.copyfile(root / "sw/runtime/DATA_SOURCES.md", target / "assets/DATA_SOURCES.md")
+    shutil.copyfile(
+        root.parent / "board_runtime/assets/DATA_SOURCES.md", target / "assets/DATA_SOURCES.md"
+    )
     with (target / "assets/DATA_SOURCES.md").open("a", encoding="utf8") as f:
         f.write(
             "\nHand detection and 21 landmarks: OpenCV Zoo commit48b10fa505aeb51fbd127fc60a5c660040e823b7, Apache-2.0; source hashes in models/gestures/source_manifest.json. "

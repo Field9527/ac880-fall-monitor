@@ -23,14 +23,14 @@
 运行包：在源码根目录执行以下命令，路径替换为自己的文件位置：
 
 ```powershell
-python ac880_fall/scripts/build_semantic_runtime.py E:/build/runtime --model E:/models/fall_regions_refined_v5 --gesture E:/models/gesture_mediapipe_v1 --library E:/models/libncnn_semantic.so --hardware E:/build/semantic_video.bit --config ac880_fall/sw/config_current.json --board-root /home/xilinx/fall_gesture_trial
+python ac880_fall/scripts/build_semantic_runtime.py E:/build/runtime --model E:/models/fall_regions_refined_v5 --gesture E:/models/gesture_mediapipe_v1 --library E:/models/libncnn_semantic.so --hardware E:/build/semantic_video.bit --config board_runtime/config.json --board-root /home/xilinx/fall_gesture_trial
 ```
 
 模型、硬件与库必须是成套校验版本。打包程序核验模型和库哈希，拒绝已知不匹配的组合，不会自动部署或下载开发板。
 
 ## 验证顺序
 
-先执行 `sw/test_*.py` 软件回归，再核对模型与库数值、bit/hwh、实机视频和外设回执，最后做真实人员独立场景测试及远程负载测试。重复帧、过期结果、误报、漏报及完整动作时间应单独统计。手机屏幕回放仅作集成测试，训练重放不作为独立现场验收。
+先执行 `ac880_fall/tests/test_*.py` 软件回归，再核对模型与库数值、bit/hwh、实机视频和外设回执，最后做真实人员独立场景测试及远程负载测试。重复帧、过期结果、误报、漏报及完整动作时间应单独统计。手机屏幕回放仅作集成测试，训练重放不作为独立现场验收。
 
 ## 当前边界
 
