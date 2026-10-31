@@ -1,12 +1,16 @@
 {
   "files": {
+    "README.md": {
+      "bytes": 1694,
+      "sha256": "6a95a8444558c91b45f93d946663a3ec34cb50b5692023a812dd274e2c221dc3"
+    },
     "app/display_ui.py": {
-      "bytes": 12069,
-      "sha256": "b3e405f1b3a41c100d3990e8009a11534dfd6684dbe2a62e73cc279c6cb075d9"
+      "bytes": 13078,
+      "sha256": "b619d68a7038f73e2e822872dc5ddca90dbd65a59162b24fa8a23f7c97d46d95"
     },
     "app/dual_inference.py": {
-      "bytes": 3655,
-      "sha256": "cbf284217d76e5ea3dec69737ae4dd490225a40797b56ca16fad5dc652767dd7"
+      "bytes": 5743,
+      "sha256": "948f73b19cfc792f41c3f813b04f6d4a7fd53424d4b708f2ff6f691caf32c971"
     },
     "app/environment.py": {
       "bytes": 4988,
@@ -41,8 +45,8 @@
       "sha256": "0af35ac7759518d45d048a4a7b2e68ca8bb5c9ba5e15b8cc946384766691739a"
     },
     "app/home_web.py": {
-      "bytes": 28447,
-      "sha256": "4fef1f413261097643f1a35ad6e58590203401502d9a29c75e16a60ed07f188e"
+      "bytes": 28939,
+      "sha256": "6e63db219ea0841cc4acff3b21a89dee4ce03d47cf9f9675252fd5920ac549a8"
     },
     "app/image_processing.py": {
       "bytes": 5285,
@@ -61,8 +65,12 @@
       "sha256": "9ab83dbe6bb6f350f0203a6063df700a9d84e34dff52ac046051af27ff32d7c7"
     },
     "app/realtime.py": {
-      "bytes": 44274,
-      "sha256": "9cfd070fefbec3b2c7f1273f9fdd750464be2c56a646de1fd080b46d2ce6484e"
+      "bytes": 45742,
+      "sha256": "6a304dcbe5b41e79b57e800b4b6947b57312db58fb8661f7811e7334adce0fec"
+    },
+    "app/recognition_mode.py": {
+      "bytes": 1682,
+      "sha256": "eab06bc5e09baabffb9e47cf5495d02f09b5704c4ff1dc87863ddc9908823fd4"
     },
     "app/semantic_decode.py": {
       "bytes": 2853,
@@ -73,8 +81,8 @@
       "sha256": "916b08485febbd1a28c6eaa2f805ab416d100582eb2b6de9367e0ebd3d1c070e"
     },
     "app/shared_detector.py": {
-      "bytes": 20492,
-      "sha256": "f0909bc91ad32e75504819d4df2a88e966a769341e1d0909e3dd02836e85b0c2"
+      "bytes": 21223,
+      "sha256": "0f177f498da0869332a9ef7a2d0f6451903f43846a0779293c4517dec867cf61"
     },
     "app/tracked_fall.py": {
       "bytes": 5274,
@@ -85,12 +93,12 @@
       "sha256": "770db0beb7b6e4c12b7f681ec5bdc3c8037849d5e59d9382aa2e7f58b9e941fc"
     },
     "app/web/app.js": {
-      "bytes": 19522,
-      "sha256": "79646e77e42b1a5e3f2279abf7bab655cddfece700e3022e4fb62adcb1737e65"
+      "bytes": 21165,
+      "sha256": "13457b9345a7a30a44eacd6b7cd3724e4dfe0a38a12641aca9830be09fe10d39"
     },
     "app/web/index.html": {
-      "bytes": 11335,
-      "sha256": "10da1f1da07804a27e2d872eb53c3afd56e9915ab74a0d7310b4a8eba8999fd4"
+      "bytes": 11420,
+      "sha256": "9e9848343495377b8d2b1a364feb9459508d84d6f851a8529455ef8c537d051d"
     },
     "app/web/video_stream.js": {
       "bytes": 7876,
@@ -166,23 +174,19 @@
     },
     "assets/system.bit": {
       "bytes": 4045684,
-      "sha256": "63c530b5afa8cb73fb23df1bfbe16ae2843d251f1e6cd604de55a930438a9ec5"
+      "sha256": "7d7c52ddc5a52f0a0109376926bd4eea8d3a0d72c074a2c2c762e9ba7a882152"
     },
     "assets/system.hwh": {
-      "bytes": 520015,
-      "sha256": "cdf215dd37ccdb86b521dc086a71701c6591c630d8ac4b78700d43f001bf88a5"
+      "bytes": 541001,
+      "sha256": "42e0c7d3a47d5943f6bb0af05f6300a1d498cccf224cc4e6917854a2d89d718b"
     },
     "assets/ui/monitor.ttf": {
       "bytes": 21892,
       "sha256": "931fe519d82189a7decef9df344e3deec61140f316631356042d44bcb14c8744"
     },
     "config.json": {
-      "bytes": 2015,
-      "sha256": "247efcc1d167782e693fa1257967dadf4877877690c767fbe74e9982465d1fd5"
-    },
-    "README.md": {
-      "bytes": 1052,
-      "sha256": "b0ba62b4ddd395986538f97ff642a0532c36784e6167b845058fda157e867473"
+      "bytes": 2094,
+      "sha256": "7d11fef0a3ca09f1a5b042e142f826ea76a24a845ca2c9538a17d787dba4fbc7"
     },
     "run.sh": {
       "bytes": 448,

@@ -341,6 +341,7 @@ def main():
     preview_writer = None
     home_web = home_outputs = None
     environment = None
+    recognition_switch = None
     last_home_status = -float("inf")
     timings = {k: deque(maxlen=4096) for k in ("copy_ms", "draw_ms", "present_ms", "interval_ms")}
     first_camera_count = first_camera_time = last_present = None
@@ -515,10 +516,7 @@ def main():
             if backend == "fall_lite" and segmenter is not None:
                 from fall_lite import LatestFrameInference
 
-                if (
-                    getattr(segmenter, "independent_gestures", False)
-                    and segmenter.hands is not None
-                ):
+                if getattr(segmenter, "independent_gestures", False):
                     from dual_inference import ConcurrentGestureInference
 
                     inference_worker = ConcurrentGestureInference(
@@ -535,8 +533,19 @@ def main():
                             else 5.0 if segmenter.engine == "semantic" else 3.0
                         ),
                     )
+            if (
+                cfg.get("recognition_switch", {}).get("enabled", False)
+                and getattr(segmenter, "semantic_options", None) is not None
+            ):
+                from recognition_mode import RecognitionSwitch
+
+                recognition_switch = RecognitionSwitch(
+                    MMIO(int(cfg["motion_detect"]["base_addr"], 0), 0x1000),
+                    segmenter.semantic_options,
+                    cfg["recognition_switch"],
+                )
             preview_writer = PreviewWriter()
-            if cfg.get("web", {}).get("enabled", False):
+            if cfg.get("web", {}).get("enabled", False) or recognition_switch is not None:
                 from home_web import HomeOutputs, HomeWeb
 
                 home_outputs = HomeOutputs(
@@ -548,7 +557,8 @@ def main():
                     ),
                     semantic=getattr(segmenter, "semantic_options", None),
                 )
-                home_web = HomeWeb(home_outputs, cfg["web"], logger)
+                if cfg.get("web", {}).get("enabled", False):
+                    home_web = HomeWeb(home_outputs, cfg["web"], logger)
         elif args.replay:
             import cv2
 
@@ -582,6 +592,10 @@ def main():
         gesture_epoch = None
         while not stopped and (not args.duration or time.monotonic() - start < args.duration):
             loop = time.monotonic()
+            if recognition_switch is not None and recognition_switch.poll(loop):
+                logger.info("SW0 识别模式：%s", recognition_switch.mode)
+                if home_outputs:
+                    home_outputs.recognition_changed(recognition_switch.mode)
             if diagnostic_requested:
                 if segmenter is not None and getattr(segmenter, "diagnostic_dir", None) is not None:
                     segmenter.diagnostic_active = True
@@ -693,6 +707,12 @@ def main():
                         ready=False, bbox=None, score=0.0, reason="model_mode_switch"
                     )
                 observation["show_objects"] = options["show_objects"]
+                observation["recognition_mode"] = options["recognition_mode"]
+                if options["mode"] == "phone_replay":
+                    observation["test_context"] = "phone_screen_replay"
+                if options["recognition_mode"] not in ("fall", "both"):
+                    new_evidence = False
+                    observation.update(bbox=None, score=0.0, detections=[])
             bbox = observation["bbox"]
             roi = None
             if frame is not None and bbox and "_roi" not in observation and new_evidence:
@@ -735,6 +755,7 @@ def main():
                     enabled = (
                         options["gesture_enabled"]
                         and options["mode"] == "live"
+                        and options["recognition_mode"] in ("both", "gesture")
                         and observation.get("gesture_generation") == epoch[1]
                         and observation.get("semantic_generation") == epoch[0]
                     )
@@ -815,6 +836,7 @@ def main():
                         coverage_limited=observation.get("coverage_limited", False)
                         or result.get("tracking_limited", False),
                         monitor_mode=observation.get("monitor_mode"),
+                        recognition_mode=observation.get("recognition_mode", "both"),
                         replay_rotation=observation.get("replay_rotation", 0),
                         evidence_age_s=(
                             round(loop - observation["source_monotonic"], 2)
@@ -867,6 +889,7 @@ def main():
                 )
                 status.update(performance)
                 status["environment"] = environment_value
+                status["recognition_mode"] = observation.get("recognition_mode", "both")
                 if "inference_ms" in observation:
                     status.update(
                         inference_ms=observation["inference_ms"],

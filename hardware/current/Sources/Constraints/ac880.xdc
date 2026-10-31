@@ -85,6 +85,10 @@ set_property IOSTANDARD TMDS_33 [get_ports {hdmi_tx2_n[0]}]
 set_property PACKAGE_PIN Y9  [get_ports clk_50m_in]
 set_property PACKAGE_PIN P17 [get_ports reset_n]
 set_property PACKAGE_PIN N22 [get_ports led]
+set_property PACKAGE_PIN M16 [get_ports recognition_sw0]
+set_property IOSTANDARD LVCMOS33 [get_ports recognition_sw0]
+# 用户拨码输入只对第一级同步器放宽异步输入路径。
+set_false_path -from [get_ports recognition_sw0] -to [get_pins -hier -filter {NAME == "u_home_io/switch_sync_reg[0]/D"}]
 
 # ==============================================================
 # 7. 引脚分配 - 摄像头 DVP

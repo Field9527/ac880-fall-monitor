@@ -27,7 +27,9 @@ class SemanticOptions:
             gesture_enabled=True,
             gesture_generation=0,
             generation=0,
+            recognition_mode="both",
         )
+        self.switch_status = None
 
     @property
     def configuration(self):
@@ -59,7 +61,11 @@ class SemanticOptions:
     def configure(self, value):
         with self.lock:
             proposed = self.validate(
-                {k: v for k, v in value.items() if k not in ("generation", "gesture_generation")},
+                {
+                    k: v
+                    for k, v in value.items()
+                    if k not in ("generation", "gesture_generation", "recognition_mode")
+                },
                 self.value,
             )
             generation = self.value["generation"] + int(
@@ -70,8 +76,18 @@ class SemanticOptions:
             )
             self.value = dict(proposed, generation=generation, gesture_generation=epoch)
 
+    def select_recognition(self, mode, status):
+        if mode not in ("fall", "gesture", "paused"):
+            raise ValueError("无效的拨码识别模式")
+        with self.lock:
+            if mode != self.value["recognition_mode"]:
+                self.value["recognition_mode"] = mode
+                self.value["generation"] += 1
+            self.switch_status = dict(status)
+
     def snapshot(self):
-        return dict(available=True, **self.configuration)
+        with self.lock:
+            return dict(available=True, recognition_switch=self.switch_status, **self.value)
 
 
 class SharedFallDetector(FallLiteDetector):
@@ -431,7 +447,12 @@ class SharedFallDetector(FallLiteDetector):
 
     def gestures_enabled(self):
         options = self.semantic_options.configuration
-        return self.hands is not None and options["gesture_enabled"] and options["mode"] == "live"
+        return (
+            self.hands is not None
+            and options["gesture_enabled"]
+            and options["mode"] == "live"
+            and options["recognition_mode"] in ("both", "gesture")
+        )
 
     def process_hand(self, frame, now=None):
         # 仅独立手势任务访问关键点网络和跟踪器。

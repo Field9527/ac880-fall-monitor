@@ -185,6 +185,16 @@ class HomeOutputs:
             )
         return revision
 
+    def recognition_changed(self, mode):
+        with self.lock:
+            # 切换时结束旧报警或手势短鸣，保留用户 LED 的当前状态。
+            self.manual_until = self.auto_until = 0.0
+            self.last_alarm = False
+            names = {"fall": "摔倒模式", "gesture": "手势模式", "paused": "识别暂停"}
+            self.events.appendleft(
+                dict(kind="mode", message="拨码切换：" + names[mode], at=time.monotonic())
+            )
+
     def snapshot(self):
         with self.lock:
             now = time.monotonic()

@@ -18,6 +18,7 @@ module motion_regfile(
     home_ctrl,
     home_feed,
     home_status,
+    recognition_mode_sw,
     image_control,image_frames,
     env_status,
     env_payload,
@@ -131,6 +132,7 @@ input                       s_axi_aresetn;
 output reg [9:0]             home_ctrl;
 output reg                   home_feed;
 input [31:0]                 home_status;
+input recognition_mode_sw;
 output reg [31:0] image_control;
 input [31:0] image_frames;
 input [31:0] env_status;
@@ -524,6 +526,8 @@ always @(*) begin
         10'h041: rdata_reg = {22'd0, home_ctrl};
         10'h042: rdata_reg = home_status;
         10'h043: rdata_reg = 32'd2500; // fixed hardware tone, Hz
+        10'h044: rdata_reg = 32'h53574D31; // SWM1，拨码模式接口
+        10'h045: rdata_reg = {31'd0, recognition_mode_sw};
         10'h048: rdata_reg = 32'h454E5631; // ENV1
         10'h049: rdata_reg = env_status;
         10'h04a: rdata_reg = env_payload;

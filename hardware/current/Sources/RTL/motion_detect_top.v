@@ -21,6 +21,7 @@ module motion_detect_top(
     home_ctrl,
     home_feed,
     home_status,
+    recognition_mode_sw,
     image_control,image_frames,
     env_status,
     env_payload,
@@ -95,6 +96,7 @@ input           s_axi_aresetn;
 output [9:0]    home_ctrl;
 output          home_feed;
 input [31:0]    home_status;
+input recognition_mode_sw;
 output [31:0] image_control;
 input [31:0] image_frames;
 input [31:0] env_status;
@@ -484,6 +486,7 @@ motion_regfile u_motion_regfile(
     .home_ctrl      ( home_ctrl ),
     .home_feed      ( home_feed ),
     .home_status    ( home_status ),
+    .recognition_mode_sw (recognition_mode_sw),
     .image_control(image_control),.image_frames(image_frames),
     .env_status (env_status),
     .env_payload (env_payload),

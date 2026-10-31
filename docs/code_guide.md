@@ -15,7 +15,8 @@
 | `fall_lite.py`、`ncnn_backend.py` | 输入预处理、候选解码、NCNN C 接口 |
 | `shared_detector.py`、`semantic_features.py`、`semantic_decode.py` | 共享特征、区域复核、坐标恢复 |
 | `tracked_fall.py` | 按目标确认报警，过滤重复与过期证据 |
-| `dual_inference.py` | 跌倒、手势分别处理最新帧 |
+| `dual_inference.py` | 按 SW0 选择任务，排空旧任务并隔离跨模式结果 |
+| `recognition_mode.py` | SW0 读取、消抖、接口故障时暂停识别 |
 | `hand_models.py`、`hand_geometry.py` | 掌部及 21 点关键点推理与坐标变换 |
 | `hand_region_review.py` | 新鲜、高置信度手部区域局部复核 |
 | `gesture_control.py` | 手势分类、稳定确认、单次触发与冷却 |

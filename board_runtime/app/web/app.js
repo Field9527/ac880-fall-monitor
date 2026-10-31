@@ -6,7 +6,7 @@ for(let i=0;i<8;i++){const button=document.createElement('button');button.classN
 function toast(text,error=false){clearTimeout(toastTimer);$('toast').textContent=text;$('toast').className='toast show'+(error?' error':'');toastTimer=setTimeout(()=>$('toast').classList.remove('show'),3000);}
 function age(seconds){if(seconds<60)return `${seconds} 秒前`;if(seconds<3600)return `${Math.floor(seconds/60)} 分钟前`;return `${Math.floor(seconds/3600)} 小时前`;}
 function duration(seconds){if(seconds<60)return `${Math.floor(seconds)} 秒`;if(seconds<3600)return `${Math.floor(seconds/60)} 分钟`;return `${Math.floor(seconds/3600)} 小时 ${Math.floor(seconds%3600/60)} 分钟`;}
-function enableControls(enabled){document.querySelectorAll('.controls-card button,.controls-card input,.controls-card select').forEach(e=>e.disabled=!enabled||busy);if(!(current&&current.controls.image&&current.controls.image.available))document.querySelectorAll('.image-card button,.image-card input').forEach(e=>e.disabled=true);if(current&&current.controls.semantic&&current.controls.semantic.mode==='live')$('replay-rotation').disabled=true;}
+function enableControls(enabled){document.querySelectorAll('.controls-card button,.controls-card input,.controls-card select').forEach(e=>e.disabled=!enabled||busy);if(!(current&&current.controls.image&&current.controls.image.available))document.querySelectorAll('.image-card button,.image-card input').forEach(e=>e.disabled=true);if(current&&current.controls.semantic&&current.controls.semantic.mode==='live')$('replay-rotation').disabled=true;if(current&&recognitionMode(current.detector,current.controls)!=='gesture'&&recognitionMode(current.detector,current.controls)!=='both')$('gesture-enabled').disabled=true;}
 let imageEditing=false,imageTimer=null,imageQueued=null;
 function queueImage(){imageQueued={brightness:Number($('image-brightness').value),contrast:Number($('image-contrast').value)};clearTimeout(imageTimer);imageTimer=setTimeout(flushImage,350);}
 async function flushImage(){if(!imageQueued)return;if(busy){imageTimer=setTimeout(flushImage,150);return;}const value=imageQueued;imageQueued=null;imageEditing=false;await command({image:value});}
@@ -19,17 +19,23 @@ function renderImage(image,d,connected){
 }
 const gestureNames={open_palm:'张开手掌',fist:'握拳',victory:'V 手势',unknown:'手势未确认'};
 const handHints={no_palm:'未找到完整手掌，请让整只手入镜',uncertain_landmarks:'手部关键点不清晰，请稳定姿势',hand_clipped:'手掌超出画面，请稍微远离镜头',too_small:'手部太小，请适当靠近',unknown_pose:'手势未确认'};
+function recognitionMode(d,c){
+ const selected=(c.semantic||{}).recognition_mode||d.recognition_mode||'both';
+ return d.recognition_mode&&d.recognition_mode!==selected?'paused':selected;
+}
+function recognitionLabel(mode){return {fall:'摔倒模式',gesture:'手势模式',paused:'识别暂停'}[mode]||'现场识别';}
 function renderSemantic(d,c,connected){
  const s=c.semantic||{};$('semantic-card').hidden=!s.available;if(!s.available)return;
- const stale=typeof d.evidence_age_s==='number'&&d.evidence_age_s>3,changing=d.monitor_mode!==s.mode;
+ const rm=recognitionMode(d,c),stale=rm!=='gesture'&&typeof d.evidence_age_s==='number'&&d.evidence_age_s>3,changing=rm==='paused'||d.monitor_mode!==s.mode;
+ $('recognition-mode').textContent=recognitionLabel(rm)+' · '+((s.recognition_switch||{}).message||'由开发板控制');
  $('semantic-status').textContent=!connected?'未连接':changing?'切换中':stale?'结果未更新':'已就绪';
  $('semantic-status').className='hardware-badge'+(connected&&!changing&&!stale?' ready':'');
  document.querySelectorAll('[data-monitor]').forEach(e=>e.classList.toggle('selected',e.dataset.monitor===s.mode));
  $('gesture-enabled').checked=s.gesture_enabled;if(document.activeElement!==$('replay-rotation'))$('replay-rotation').value=String(s.rotation||0);
  const reviewed=(d.reviewed_candidates||[]).length;
- $('semantic-summary').textContent=!connected?'等待开发板连接':d.coverage_limited?'目标较多，部分候选尚待复核':stale?'识别结果暂未更新，请确认现场情况':`本次已复核 ${reviewed} 个非倒地候选 · 结果约 ${Number(d.evidence_age_s||0).toFixed(1)} 秒前`;
+ $('semantic-summary').textContent=!connected?'等待开发板连接':rm==='gesture'?'手势识别运行中，摔倒识别与报警暂停':rm==='paused'?'拨码切换中或接口未就绪，识别暂停':d.coverage_limited?'目标较多，部分候选尚待复核':stale?'识别结果暂未更新，请确认现场情况':`本次已复核 ${reviewed} 个非倒地候选 · 结果约 ${Number(d.evidence_age_s||0).toFixed(1)} 秒前`;
  const hand=d.hand,gesture=d.gesture_control||{},fresh=typeof d.hand_age_s==='number'&&d.hand_age_s<=3;
- $('gesture-name').textContent=!connected?'手势状态未连接':!s.gesture_enabled?'手势控制已关闭':s.mode!=='live'?'回放测试中，手势控制暂停':hand&&fresh&&hand.multiple_hands?'检测到多只手，请只保留一只手入镜':hand&&fresh?(gestureNames[hand.name]||'手势未确认'):(handHints[d.hand_status]||'等待完整单手入镜');
+ $('gesture-name').textContent=!connected?'手势状态未连接':rm==='fall'?'摔倒模式中，手势暂停':rm==='paused'?'识别暂停':!s.gesture_enabled?'手势控制已关闭':s.mode!=='live'?'回放测试中，手势控制暂停':hand&&fresh&&hand.multiple_hands?'检测到多只手，请只保留一只手入镜':hand&&fresh?(gestureNames[hand.name]||'手势未确认'):(handHints[d.hand_status]||'等待完整单手入镜');
  $('gesture-action').textContent=gesture.last_action?'最近执行：'+gesture.last_action+(typeof gesture.last_action_age_s==='number'?` · ${Math.floor(gesture.last_action_age_s)} 秒前`:''):'尚未执行手势控制';
 }
 function renderEnvironment(value,connected){
@@ -45,16 +51,16 @@ async function post(path,payload){const controller=typeof AbortController!=='und
 async function command(payload){if(!current||busy)return;busy=true;enableControls(true);try{const body=await post('/api/control',payload);pending=body.revision;pendingSince=Date.now();toast('控制已提交，等待板端执行');await poll();}catch(error){toast(error.name==='AbortError'?'请求超时，请检查开发板连接':error.message,true);}finally{busy=false;enableControls(Boolean(current&&current.detector.running));}}
 
 function renderVideoHud(d,c,connected){
- const stage=$('video-stage'),e=current.environment||{},valid=connected&&e.valid;
- stage.classList.toggle('is-alarm',connected&&d.state_name==='ALARM');
- $('video-state').textContent=!connected?'未连接':stateNames[d.state_name]||'等待识别';
- $('video-score').textContent=connected?Math.max(0,Math.min(1,Number(d.pe)||0)).toFixed(2):'—';
+ const stage=$('video-stage'),e=current.environment||{},valid=connected&&e.valid,rm=recognitionMode(d,c);
+ stage.classList.toggle('is-alarm',connected&&(rm==='fall'||rm==='both')&&d.state_name==='ALARM');
+ $('video-state').textContent=!connected?'未连接':rm==='gesture'||rm==='paused'?recognitionLabel(rm):stateNames[d.state_name]||'等待识别';
+ $('video-score').textContent=connected&&rm!=='gesture'&&rm!=='paused'?Math.max(0,Math.min(1,Number(d.pe)||0)).toFixed(2):'—';
  $('test-context').textContent=d.test_context==='phone_screen_replay'?'手机回放测试':d.test_context==='ui_preview'?'界面预览':'现场画面';
  $('video-temperature').textContent=valid?Number(e.temperature_c).toFixed(1):'—';
  $('video-humidity').textContent=valid?Number(e.humidity_rh).toFixed(1):'—';
  const s=c.semantic||{},hand=d.hand,fresh=typeof d.hand_age_s==='number'&&d.hand_age_s<=3;
- $('video-gesture').textContent=!connected?'等待连接':s.gesture_enabled===false?'手势已关闭':s.mode==='phone_replay'?'回放中暂停':hand&&fresh?(gestureNames[hand.name]||'手势未确认'):'等待手势';
- $('video-gesture-hint').textContent=!connected?'检查板端程序':s.mode==='phone_replay'?'手机回放联调':handHints[d.hand_status]||'保持姿势，等待稳定确认';
+ $('video-gesture').textContent=!connected?'等待连接':rm==='fall'?'手势已暂停':rm==='paused'?'识别暂停':s.gesture_enabled===false?'手势已关闭':s.mode==='phone_replay'?'回放中暂停':hand&&fresh?(gestureNames[hand.name]||'手势未确认'):'等待手势';
+ $('video-gesture-hint').textContent=!connected?'检查板端程序':rm==='fall'?'SW0 向上切换手势':rm==='paused'?'检查 SW0 与 FPGA 配置':s.mode==='phone_replay'?'手机回放联调':handHints[d.hand_status]||'保持姿势，等待稳定确认';
 }
 function updateVideoStats(stats,server={}){
  const fps=stats.native?server.fps:stats.fps;
@@ -66,7 +72,8 @@ const videoPlayer=new HomeVideo.VideoPlayer($('video-canvas'),$('camera'),stats=
  $('video-resolution').textContent=`${stats.width} × ${stats.height}`;
  updateVideoStats(stats);
 },message=>{ $('camera-link').textContent=message; });
-function render(data){current=data;token=data.control_token||token;const d=data.detector,c=data.controls,v=data.video,alarm=d.state_name==='ALARM',ready=d.ready&&d.running;
+function render(data){current=data;token=data.control_token||token;const d=data.detector,c=data.controls,v=data.video,alarm=d.state_name==='ALARM'&&['fall','both'].includes(recognitionMode(d,c)),ready=d.ready&&d.running;
+ const rm=recognitionMode(d,c),fallActive=rm==='fall'||rm==='both';
  const board=d.running&&data.status_age_s<3,clientVideo=videoPlayer.stats(),fresh=clientVideo.native?board&&v.frame_age_s!==null&&v.frame_age_s<3:clientVideo.fresh;
  renderEnvironment(data.environment,board);
  renderImage(c.image,d,board);
@@ -74,17 +81,17 @@ function render(data){current=data;token=data.control_token||token;const d=data.
  renderVideoHud(d,c,board);
  $('connection').className='connection '+(board?'online':'offline');$('connection').innerHTML='<i></i>'+(board?'已连接':'开发板未就绪');
  $('gateway-link').textContent='网页服务：已连接';$('board-link').textContent=board?'开发板：已连接':'开发板：未连接或已停止';$('camera-link').textContent=fresh?'相机：实时画面':'相机：画面未更新';
- $('state-text').textContent=stateNames[d.state_name]||'监测中';$('state-text').style.color=alarm?'#c53d3d':'#2c7052';
- $('state-description').textContent=!d.running?'识别程序已停止':!d.ready?'模型正在启动':alarm?'请及时确认现场情况':d.state_name==='IDLE'?'未发现倒地目标':'正在确认倒地状态';
- $('safety-card').classList.toggle('alarm',alarm&&board);$('safety-title').textContent=!board?'识别未连接':alarm?'请及时查看':ready?'正在守护':'系统启动中';
- $('safety-subtitle').textContent=!board?'请检查板端程序、供电与网线':alarm?'检测到持续倒地，请确认现场情况':ready?'摄像头与识别系统正在运行':'等待摄像头与模型就绪';
- if(d.coverage_limited&&board&&!alarm){$('safety-title').textContent='覆盖范围受限';$('safety-subtitle').textContent='目标较多，部分候选尚未完成复核';}
- if(typeof d.evidence_age_s==='number'&&d.evidence_age_s>3&&board&&!alarm){$('safety-title').textContent='识别结果未更新';$('safety-subtitle').textContent='视频仍可观看，请确认现场情况';}
- const score=Math.max(0,Math.min(1,Number(d.pe)||0));$('fall-score').textContent=score.toFixed(2);$('score-bar').style.width=`${score*100}%`;
+ $('state-text').textContent=fallActive?(stateNames[d.state_name]||'监测中'):recognitionLabel(rm);$('state-text').style.color=alarm?'#c53d3d':'#2c7052';
+ $('state-description').textContent=!d.running?'识别程序已停止':rm==='gesture'?'摔倒识别与报警暂停':rm==='paused'?'等待拨码稳定或更新 FPGA 配置':!d.ready?'模型正在启动':alarm?'请及时确认现场情况':d.state_name==='IDLE'?'未发现倒地目标':'正在确认倒地状态';
+ $('safety-card').classList.toggle('alarm',alarm&&board);$('safety-title').textContent=!board?'识别未连接':!fallActive?recognitionLabel(rm):alarm?'请及时查看':ready?'正在守护':'系统启动中';
+ $('safety-subtitle').textContent=!board?'请检查板端程序、供电与网线':rm==='gesture'?'SW0 向下可恢复摔倒识别':rm==='paused'?'等待拨码稳定，请检查 SW0 接口':alarm?'检测到持续倒地，请确认现场情况':ready?'摄像头与识别系统正在运行':'等待摄像头与模型就绪';
+ if(fallActive&&d.coverage_limited&&board&&!alarm){$('safety-title').textContent='覆盖范围受限';$('safety-subtitle').textContent='目标较多，部分候选尚未完成复核';}
+ if(fallActive&&typeof d.evidence_age_s==='number'&&d.evidence_age_s>3&&board&&!alarm){$('safety-title').textContent='识别结果未更新';$('safety-subtitle').textContent='视频仍可观看，请确认现场情况';}
+ const score=fallActive?Math.max(0,Math.min(1,Number(d.pe)||0)):0;$('fall-score').textContent=fallActive?score.toFixed(2):'—';$('score-bar').style.width=`${score*100}%`;
  $('web-fps').textContent=clientVideo.native?(v.fps?v.fps.toFixed(1):'—'):(clientVideo.fps?clientVideo.fps.toFixed(1):'—');$('hdmi-fps').textContent=`HDMI ${d.display_fps?d.display_fps.toFixed(1):'—'} FPS`;
  $('alarm-count').textContent=c.alarm_count;$('uptime').textContent=`本次运行 ${duration(d.uptime_s||0)}`;
  $('video-resolution').textContent=Array.isArray(v.resolution)?v.resolution.join(' × '):'等待画面';$('viewer-info').textContent=`${v.viewers} 台设备正在观看`;updateVideoStats(clientVideo,v);
- $('inference-info').textContent=d.inference_ms?`识别 ${Math.round(d.inference_ms)} ms / 次 · ${d.inference_fps?d.inference_fps.toFixed(1):'—'} 次 / 秒`:'评分不代表识别准确率';
+ $('inference-info').textContent=!fallActive?'当前未运行摔倒识别':d.inference_ms?`识别 ${Math.round(d.inference_ms)} ms / 次 · ${d.inference_fps?d.inference_fps.toFixed(1):'—'} 次 / 秒`:'评分不代表识别准确率';
  $('video-wait').hidden=fresh;
  if(!fresh)$('video-wait').querySelector('strong').textContent=v.sequence?'画面暂未更新':'正在连接摄像头';
  document.querySelectorAll('.led-button').forEach((e,i)=>e.setAttribute('aria-pressed',String(Boolean(c.applied.led_mask&(1<<i)))));

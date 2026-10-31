@@ -52,6 +52,10 @@ class MonitorHUD:
 
     @staticmethod
     def state(result, observation):
+        if observation.get("recognition_mode") == "paused":
+            return "Recognition paused", MUTED
+        if observation.get("recognition_mode") == "gesture":
+            return "Gesture control", BLUE
         state = int(result.get("state", 0))
         if state == 3:
             return "FALL ALERT", RED
@@ -78,8 +82,14 @@ class MonitorHUD:
             mode = "TEST INPUT"
         if observation.get("test_context") == "phone_screen_replay":
             mode = "PHONE REPLAY"
+        elif observation.get("recognition_mode") in ("fall", "gesture", "paused"):
+            mode = {"fall": "SW0: FALL", "gesture": "SW0: GESTURE", "paused": "SW0: WAIT"}[
+                observation["recognition_mode"]
+            ]
         limited = bool(observation.get("coverage_limited") or result.get("tracking_limited"))
-        key = (width, top, title, accent, mode, round(float(result.get("pe", 0)), 2), limited)
+        fall_active = observation.get("recognition_mode", "both") in ("both", "fall")
+        score = round(float(result.get("pe", 0)), 2) if fall_active else None
+        key = (width, top, title, accent, mode, score, limited)
         if key != self.header_key:
             self.header = self.make_header(key, scale)
             self.header_key = key
@@ -90,7 +100,7 @@ class MonitorHUD:
             self.footer_key = key
         frame[:top] = self.header
         frame[-bottom:] = self.footer
-        if int(result.get("state", 0)) == 3:
+        if fall_active and int(result.get("state", 0)) == 3:
             cv2.rectangle(frame, (0, top), (width - 1, height - bottom - 1), rgb565(RED), 3)
 
     @staticmethod
@@ -101,7 +111,7 @@ class MonitorHUD:
         draw = ImageDraw.Draw(image)
         draw.text(
             (width - round(332 * scale), round(29 * scale)),
-            "%.2f" % score,
+            "%.2f" % score if score is not None else "--",
             font=font(round(19 * scale)),
             fill=WHITE,
         )
@@ -193,6 +203,10 @@ class MonitorHUD:
             hand_title, hint = "Gesture paused", "Phone replay mode"
         if observation.get("gesture_enabled") is False:
             hand_title, hint = "Gesture disabled", "Enable from the web page"
+        if observation.get("recognition_mode") == "fall":
+            hand_title, hint = "Gesture paused", "SW0 up: gesture mode"
+        elif observation.get("recognition_mode") == "paused":
+            hand_title, hint = "Recognition paused", "Check SW0 / FPGA configuration"
         return temperature, humidity, env_note, hand_title, hint
 
     @staticmethod
@@ -265,7 +279,10 @@ class MonitorHUD:
                     cv2.line(frame, (a, b), (a + dx * corner, b), value, thickness + 1)
                     cv2.line(frame, (a, b), (a, b + dy * corner), value, thickness + 1)
 
-        if observation.get("bbox"):
+        if observation.get("bbox") and observation.get("recognition_mode", "both") in (
+            "both",
+            "fall",
+        ):
             box(observation["bbox"], color)
         if observation.get("show_objects"):
             for obj in observation.get("objects", [])[:8]:

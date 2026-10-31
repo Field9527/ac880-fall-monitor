@@ -18,6 +18,7 @@ module fall_top(
   inout           dht11_data       ,
   input           light_do          ,
   output          beep             ,  // passive buzzer, J22
+  input           recognition_sw0  ,  // 用户拨码 SW0，M16
 
   // 摄像头 DVP 接口
   output          camera_xclk      ,  // 摄像头时钟输出，AA18
@@ -623,10 +624,12 @@ module fall_top(
   wire [9:0] home_ctrl;
   wire home_feed;
   wire [31:0] home_status;
+  wire recognition_mode_sw;
   wire [7:0] home_led_value;
   home_io u_home_io (
     .clk(fclk_clk0), .resetn(axi_aresetn),
     .control(home_ctrl), .feed(home_feed), .camera_ready(camera_init_done),
+    .switch0(recognition_sw0), .mode_switch(recognition_mode_sw),
     .leds(home_led_value), .beep(beep), .status(home_status)
   );
   assign led = home_led_value[0];
@@ -722,6 +725,7 @@ module fall_top(
     .home_ctrl        (home_ctrl),
     .home_feed        (home_feed),
     .home_status      (home_status),
+    .recognition_mode_sw (recognition_mode_sw),
     .image_control(image_control),.image_frames(image_frames),
     .env_status (env_status),
     .env_payload (env_payload),

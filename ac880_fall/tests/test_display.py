@@ -45,6 +45,19 @@ class DisplayTests(unittest.TestCase):
         info = MonitorHUD.footer_info(value, {}, {})
         self.assertEqual(info[:3], ("--", "--", "Reading expired"))
 
+    def test_hardware_selection_is_visible_and_fall_mode_explains_paused_hand(self):
+        from display_ui import MonitorHUD
+
+        hud = MonitorHUD()
+        frame = np.zeros((720, 1280), dtype=np.uint16)
+        hud.draw(frame, dict(state=3, pe=0.99), dict(ready=True, recognition_mode="gesture"))
+        self.assertIn("SW0: GESTURE", hud.header_key)
+        self.assertIn("Gesture control", hud.header_key)
+        self.assertIsNone(hud.header_key[-2])
+        self.assertEqual(frame[70, 0], 0)
+        info = hud.footer_info({}, dict(recognition_mode="fall", gesture_enabled=False), {})
+        self.assertEqual(info[3:], ("Gesture paused", "SW0 up: gesture mode"))
+
     def test_previous_command_is_not_reported_as_a_new_gesture_receipt(self):
         from display_ui import MonitorHUD
         from gesture_control import ACTIONS

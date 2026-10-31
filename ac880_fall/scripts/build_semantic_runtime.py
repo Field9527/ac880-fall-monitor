@@ -56,6 +56,7 @@ def build(a):
         "hand_geometry",
         "gesture_control",
         "dual_inference",
+        "recognition_mode",
         "hand_region_review",
     )
     for name in names:
@@ -144,6 +145,7 @@ def build(a):
     )
     cfg["image_processing"] = dict(mode="color", brightness=0, contrast=100)
     cfg["gesture_control"] = dict(hold_s=0.5)
+    cfg["recognition_switch"] = dict(enabled=True, debounce_s=0.15)
     (target / "config.json").write_text(
         json.dumps(cfg, ensure_ascii=False, indent=2) + "\n", encoding="utf8"
     )
@@ -170,6 +172,7 @@ exec sudo -E env XILINX_XRT=/usr PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=
 ./run.sh 手动启动；./run.sh status 查看；./run.sh stop 安全停止。
 run_home.sh 等同 run.sh；run_fall.sh 仅 HDMI。不开机自启。
 OV5640 720p、PL 图像处理、DHT11 与 LED/蜂鸣器控制保留。
+用户拨码 SW0 向下仅摔倒，向上仅手势；切换清空旧结果。手势模式暂停摔倒监护。
 CPU 摔倒分支沿用 v6 权重；小型共享特征复核器判断手部、局部人体等。
 张开手掌：全部开灯；握拳：全部关灯；V手势：短鸣0.5秒；停止鸣叫请用网页按钮。
 单手完整入镜，保持手势至连续确认；保持不动只执行一次。网页可关闭手势控制。

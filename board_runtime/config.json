@@ -79,5 +79,9 @@
   },
   "gesture_control": {
     "hold_s": 0.5
+  },
+  "recognition_switch": {
+    "enabled": true,
+    "debounce_s": 0.15
   }
 }

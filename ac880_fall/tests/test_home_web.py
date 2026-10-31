@@ -148,6 +148,21 @@ class HomeTests(unittest.TestCase):
             self.outputs.tick(False)
         self.assertEqual(semantic.configuration["generation"], 1)
 
+    def test_switching_mode_ends_old_alarm_and_gesture_buzzer(self):
+        self.outputs.command(dict(buzzer_auto=True, led_mask=255))
+        self.outputs.tick(True)
+        self.assertTrue(self.outputs.snapshot()["applied"]["buzzer"])
+        self.outputs.recognition_changed("gesture")
+        self.outputs.tick(False)
+        value = self.outputs.snapshot()
+        self.assertFalse(value["applied"]["buzzer"])
+        self.assertFalse(value["applied"]["ps_led"])
+        self.assertEqual(value["applied"]["led_mask"], 255)
+        self.outputs.command(dict(buzzer=dict(on=True, duration_ms=500)))
+        self.outputs.recognition_changed("fall")
+        self.outputs.tick(False)
+        self.assertFalse(self.outputs.snapshot()["applied"]["buzzer"])
+
     def test_environment_api_does_not_keep_live_values_when_board_status_is_stale(self):
         web = HomeWeb(self.outputs, dict(host="127.0.0.1", port=0))
         try:
